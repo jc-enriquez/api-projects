@@ -23,16 +23,25 @@ body {
   font-size: 3.5rem;
 }
 
-.bi-sunrise-fill,
-.bi-sunset-fill {
+.bi-sunrise-fill {
   color: #ffbf00;
 }
 
-.bi-thermometer-high,
-.bi-thermometer-low {
+.bi-sunset-fill {
+  color: #7393b3;
+}
+
+.bi-thermometer-high {
   color: #ee4b2b;
 }
 
+.bi-thermometer-low {
+  color: #6082b6;
+}
 .card {
   height: 15em;
+}
+
+#map {
+  height: 100vh;
 }

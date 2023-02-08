@@ -24,7 +24,7 @@
     <main class="container py-5">
       <section class="weather loading">
         <div class="row">
-          <div class="col-lg-3 bg-white">
+          <div class="col-lg-3 bg-white mb-3">
             <div class="d-flex search">
               <input
                 type="text"
@@ -45,25 +45,45 @@
             </p>
 
             <p>
-              <span class="fw-bold" id="current-day">Monday, </span>
-              <span class="text-muted" id="current-time">16:00</span>
+              <span class="fw-bold" id="country"></span>
+              <span class="text-muted" id="time"></span>
             </p>
             <hr />
-            <p class="text-capitalize" id="description">mostly cloudy</p>
+            <p class="text-capitalize" id="description"></p>
+            <p>
+              <i class="bi bi-cloud-rain-fill fs-3"></i><span id="rain"></span>
+            </p>
+            <p>
+              <i class="bi bi-clouds fs-3 me-3"></i><span id="clouds"></span>
+              <small>(Cloudiness)</small>
+            </p>
             <div class="location p-4 rounded-4">
-              <h3 id="city" class="text-white">Weather in Manila</h3>
+              <h3 id="city" class="text-white"></h3>
             </div>
           </div>
           <div class="col-lg-9">
-            <h2>Weather in Manila</h2>
-            <div id="openweathermap-widget-1" class="mb-3"></div>
+            <div
+              id="openweathermap-widget-1"
+              class="mb-3 d-none d-md-block"
+            ></div>
+            <div
+              id="openweathermap-widget-5"
+              class="mb-3 d-block d-sm-none mx-auto"
+            ></div>
+
             <div class="row">
               <div class="col-lg-4 mb-3">
                 <div class="card">
                   <div class="card-body">
                     <h6 class="card-title text-muted">Humidity</h6>
-                    <div class="d-flex align-items-center h-100">
+                    <div
+                      class="d-flex flex-column justify-content-evenly h-100"
+                    >
                       <span class="font-lg" id="humidity"></span>
+                      <small class="text-muted d-block"
+                        >Feels like:
+                        <span id="feels"></span>
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -77,13 +97,13 @@
                     >
                       <p><span class="font-lg" id="wind"></span>km/h</p>
                       <small class="text-muted d-block"
-                        >Gust:<span id="gust"></span
+                        >Direction: <span id="direction"></span
                       ></small>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 mb-3">
                 <div class="card">
                   <div class="card-body">
                     <h6 class="card-title text-muted">Sunrise & Sunset</h6>
@@ -104,7 +124,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 mb-3">
                 <div class="card">
                   <div class="card-body">
                     <h6 class="card-title text-muted">Temperature</h6>
@@ -125,26 +145,32 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 mb-3">
                 <div class="card">
                   <div class="card-body">
-                    <h6 class="card-title text-muted">Visibility</h6>
-                    <span class="fs-1" id="visibility"></span>
-                    <span class="fs-1" id="pressure"></span>
+                    <h6 class="card-title text-muted">Visibility & Pressure</h6>
+                    <p><span class="fs-1" id="visibility"></span> km</p>
+                    <p><span class="fs-1" id="pressure"></span> hPa</p>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 mb-3">
                 <div class="card">
                   <div class="card-body">
                     <h6 class="card-title text-muted">Coordinates</h6>
-                    <div class="d-flex">
-                      <i class="bi bi-water fs-1"></i>
-                      <p id="lon"></p>
+                    <div class="d-flex align-items-center">
+                      <span class="font-lg me-3">λ</span>
+                      <div>
+                        <p id="lon" class="mb-0"></p>
+                        <small class="text-muted">Longitude</small>
+                      </div>
                     </div>
-                    <div class="d-flex">
-                      <i class="bi bi-buildings-fill fs-1"></i>
-                      <p id="lat"></p>
+                    <div class="d-flex align-items-center">
+                      <span class="font-lg me-3">φ</span>
+                      <div>
+                        <p id="lat" class="mb-0"></p>
+                        <small class="text-muted">Latitude</small>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -15,10 +15,6 @@ function toStandardTime(militaryTime) {
 
 let weather = {
   apiKey: "8cb4e74484c650ba890c9f16323ff0d5",
-  locator: navigator.geolocation.getCurrentPosition((pos) => {
-    const latitude = pos.coords.latitude;
-    const longitue = pos.coords.longitude;
-  }),
   fetchWeather: function (city) {
     fetch(
       "http://api.openweathermap.org/data/2.5/weather?q=" +
@@ -33,17 +29,24 @@ let weather = {
     const { name } = data;
     const { lon, lat } = data.coord;
     const { icon, description } = data.weather[0];
-    const { temp, humidity, temp_min, temp_max, pressure } = data.main;
-    const { speed, gust } = data.wind;
-    const { visibility } = data.visibility;
-    const { sunrise, sunset } = data.sys;
+    const { temp, humidity, temp_min, temp_max, pressure, feels_like } =
+      data.main;
+    const { speed, deg } = data.wind;
+    const { visibility } = data;
+    const { sunrise, sunset, country } = data.sys;
+    const { all } = data.clouds;
+    const { timezone } = data;
 
     document.querySelector("#city").innerText = "Weather in " + name;
     document.querySelector("#icon").src =
       "https://openweathermap.org/img/wn/" + icon + "@2x.png";
     document.querySelector("#description").innerText = description;
+    document.querySelector("#time").innerText = timezone;
+    document.querySelector("#country").innerText = country;
+    document.querySelector("#clouds").innerText = all + "%";
     document.querySelector("#temp").innerText = temp;
     document.querySelector("#humidity").innerText = humidity + "%";
+    document.querySelector("#feels").innerText = feels_like + "°";
     document.querySelector("#max-temp").innerText = temp_max + "°C";
     document.querySelector("#min-temp").innerText = temp_min + "°C";
     document.querySelector("#visibility").innerText = visibility;
@@ -51,7 +54,7 @@ let weather = {
     document.querySelector("#lon").innerText = lon;
     document.querySelector("#lat").innerText = lat;
     document.querySelector("#wind").innerText = speed;
-    document.querySelector("#gust").innerText = gust + "°";
+    document.querySelector("#direction").innerText = deg + "°";
     document.querySelector("#sunrise").innerText = toStandardTime(
       timeConverter(sunrise)
     );
@@ -79,15 +82,24 @@ document
     }
   });
 
-weather.fetchWeather("Manila");
+const searchInput = document.querySelector("#search-bar").value;
 
 window.myWidgetParam ? window.myWidgetParam : (window.myWidgetParam = []);
 window.myWidgetParam.push({
   id: 1,
-  city_name: "Manila",
+  city_name: "",
   appid: "8cb4e74484c650ba890c9f16323ff0d5",
   units: "metric",
   containerid: "openweathermap-widget-1",
+});
+
+window.myWidgetParam ? window.myWidgetParam : (window.myWidgetParam = []);
+window.myWidgetParam.push({
+  id: 5,
+  cityid: "2643743",
+  appid: "8cb4e74484c650ba890c9f16323ff0d5",
+  units: "metric",
+  containerid: "openweathermap-widget-5",
 });
 
 (function () {
@@ -100,21 +112,4 @@ window.myWidgetParam.push({
   s.parentNode.insertBefore(script, s);
 })();
 
-// const days = [
-//   "Sunday",
-//   "Monday",
-//   "Tuesday",
-//   "Wednesday",
-//   "Thursday",
-//   "Friday",
-//   "Saturday",
-// ];
-
-// // const currentDate = new Date();
-// // let currentDay = days[currentDate.getDay()];
-// // let currentHour = currentDate.getHours();
-
-// // document.getElementById("current-day").innerHTML = currentDay;
-// // document.getElementById("current-time").innerHTML = timeConverter(
-// //   currentDate.getTime()
-// // );
+weather.fetchWeather("Manila");
