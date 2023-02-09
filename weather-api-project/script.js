@@ -61,7 +61,6 @@ let weather = {
     document.querySelector("#sunset").innerText = toStandardTime(
       timeConverter(sunset)
     );
-    document.querySelector(".weather").classList.remove("loading");
     document.querySelector(".location").style.backgroundImage =
       "url('https://source.unsplash.com/1600x900/?" + name + "')";
   },
@@ -85,18 +84,16 @@ document
 const searchInput = document.querySelector("#search-bar").value;
 
 window.myWidgetParam ? window.myWidgetParam : (window.myWidgetParam = []);
+
 window.myWidgetParam.push({
   id: 1,
-  city_name: "",
   appid: "8cb4e74484c650ba890c9f16323ff0d5",
   units: "metric",
   containerid: "openweathermap-widget-1",
 });
 
-window.myWidgetParam ? window.myWidgetParam : (window.myWidgetParam = []);
 window.myWidgetParam.push({
   id: 5,
-  cityid: "2643743",
   appid: "8cb4e74484c650ba890c9f16323ff0d5",
   units: "metric",
   containerid: "openweathermap-widget-5",
@@ -113,3 +110,6 @@ window.myWidgetParam.push({
 })();
 
 weather.fetchWeather("Manila");
+
+myWidgetParam[0].city_name = "Manila";
+myWidgetParam[1].city_name = "Manila";
