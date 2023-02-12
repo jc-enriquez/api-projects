@@ -11,3 +11,17 @@ body {
 .red-btn {
   background-color: var(--primary-color);
 }
+
+.red-btn:hover {
+  background-color: var(--primary-color);
+  opacity: 0.9;
+}
+
+.bi-star-fill {
+  color: #ffbf00;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: var(--primary-color);
+}
