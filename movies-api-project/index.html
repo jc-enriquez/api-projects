@@ -34,7 +34,7 @@
             <!-- Start of Navigation -->
             <nav class="navbar navbar-expand-lg">
               <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="index.html">
                   <img src="images/logo.png" alt="" srcset="" />
                 </a>
                 <button
@@ -54,7 +54,10 @@
                 >
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#"
+                      <a
+                        class="nav-link active"
+                        aria-current="page"
+                        href="index.html"
                         >Home</a
                       >
                     </li>
@@ -62,12 +65,22 @@
                       <a class="nav-link" href="#">TV Series</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Movies</a>
+                      <a class="nav-link" href="movies.html">Movies</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">Artists</a>
                     </li>
                   </ul>
+                  <!-- Search field -->
+                  <form class="" role="search">
+                    <input
+                      class="form-control rounded-pill"
+                      type="search"
+                      placeholder="Search"
+                      aria-label="Search"
+                    />
+                  </form>
+                  <!-- End of Search field -->
                 </div>
               </div>
             </nav>
@@ -92,96 +105,14 @@
             </header>
             <!-- End of Header -->
             <!-- Movie Section -->
-            <section id="trending-movies" class="mt-5">
+            <section class="mt-5">
               <div class="d-flex swiper">
                 <h5 class="fw-bold">Movies</h5>
               </div>
               <!-- Slider main container -->
-              <div class="swiper" id="swiper-movies">
+              <div class="swiper">
                 <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                  <!-- Slides -->
-                  <div class="swiper-slide">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                        <p>
-                          <i class="bi bi-star-fill"></i
-                          ><span class="fw-bold ms-2">9.8</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                        <p>
-                          <i class="bi bi-star-fill"></i
-                          ><span class="fw-bold ms-2">9.8</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                        <p>
-                          <i class="bi bi-star-fill"></i
-                          ><span class="fw-bold ms-2">9.8</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                        <p>
-                          <i class="bi bi-star-fill"></i
-                          ><span class="fw-bold ms-2">9.8</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                        <p>
-                          <i class="bi bi-star-fill"></i
-                          ><span class="fw-bold ms-2">9.8</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div class="swiper-wrapper" id="movies-home"></div>
                 <!-- If we need navigation buttons -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
@@ -189,236 +120,44 @@
             </section>
             <!-- End of Movie Section -->
             <!-- Series Section -->
-            <section id="trending-series" class="mt-5">
+            <section class="mt-5">
               <div class="d-flex">
                 <h5 class="fw-bold">Series</h5>
               </div>
               <!-- Slider main container -->
               <div class="swiper">
                 <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                  <!-- Slides -->
-                  <div class="swiper-slide">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                        <p>
-                          <i class="bi bi-star-fill"></i
-                          ><span class="fw-bold ms-2">9.8</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                        <p>
-                          <i class="bi bi-star-fill"></i
-                          ><span class="fw-bold ms-2">9.8</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                        <p>
-                          <i class="bi bi-star-fill"></i
-                          ><span class="fw-bold ms-2">9.8</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                        <p>
-                          <i class="bi bi-star-fill"></i
-                          ><span class="fw-bold ms-2">9.8</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </p>
-                        <p>
-                          <i class="bi bi-star-fill"></i
-                          ><span class="fw-bold ms-2">9.8</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div class="swiper-wrapper" id="series-home"></div>
                 <!-- If we need navigation buttons -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
               </div>
             </section>
-
             <!-- End of Series Section -->
+            <!-- Artist Section -->
+            <section class="mt-5">
+              <div class="d-flex">
+                <h5 class="fw-bold">Artists</h5>
+              </div>
+              <!-- Slider main container -->
+              <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper" id="artist-home"></div>
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              </div>
+            </section>
+            <!-- End of Artist Section -->
           </div>
-          <div class="col-lg-3 mt-5 pt-5 ps-5">
-            <!-- Search field -->
-            <form class="" role="search">
-              <input
-                class="form-control rounded-pill"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-            </form>
-            <!-- End of Search field -->
+          <div class="col-lg-3 mt-5">
             <!-- Popular Movies -->
-            <div class="popular-movies mt-4">
-              <!-- Header -->
-              <h4 class="fw-bold">Popular Movies</h4>
-              <!-- First Content -->
-              <div class="card mb-3 border-0">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="..." />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text text-muted">
-                        This is a wider card with supporting text below as a
-                      </p>
-                    </div>
-                  </div>
-                </div>
+            <div class="mt-4">
+              <h4 class="fw-bold">Trending Movies</h4>
+              <!-- <div class="row" id="upcoming-movies"></div> -->
+              <div class="trending-movie-swiper">
+                <div class="swiper-wrapper" id="trending-movies"></div>
               </div>
-              <!-- End of First Content -->
-              <!-- Second Content -->
-              <div class="card mb-3 border-0">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="..." />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text text-muted">
-                        This is a wider card with supporting text below as a
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End of Second Content -->
-              <!-- Third Content -->
-              <div class="card mb-3 border-0">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="..." />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text text-muted">
-                        This is a wider card with supporting text below as a
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End of Third Content -->
-              <!-- See more button -->
-              <button class="btn red-btn text-white w-100 rounded-4">
-                See more
-              </button>
-              <!-- End of see more button -->
-            </div>
-            <!-- End of Popular Movies -->
-            <div class="popular-series mt-4">
-              <!-- Header -->
-              <h4 class="fw-bold">Popular Series</h4>
-              <!-- First Content -->
-              <div class="card mb-3 border-0">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="..." />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text text-muted">
-                        This is a wider card with supporting text below as a
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End of First Content -->
-              <!-- Second Content -->
-              <div class="card mb-3 border-0">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="..." />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text text-muted">
-                        This is a wider card with supporting text below as a
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End of Second Content -->
-              <!-- Third Content -->
-              <div class="card mb-3 border-0">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="..." />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text text-muted">
-                        This is a wider card with supporting text below as a
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End of Third Content -->
-              <!-- See more button -->
-              <button class="btn red-btn text-white w-100 rounded-4">
-                See more
-              </button>
-              <!-- End of see more button -->
             </div>
           </div>
         </div>
@@ -432,6 +171,6 @@
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <!-- Main JS -->
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
