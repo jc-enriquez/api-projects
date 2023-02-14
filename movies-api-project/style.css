@@ -6,16 +6,6 @@
 
 body {
   font-family: "Nunito", sans-serif;
-  overflow-x: hidden;
-}
-
-.red-btn {
-  background-color: var(--primary-color);
-}
-
-.red-btn:hover {
-  background-color: var(--primary-color);
-  opacity: 0.9;
 }
 
 .bi-star-fill {
@@ -25,6 +15,10 @@ body {
 .swiper-button-prev,
 .swiper-button-next {
   color: var(--primary-color);
+}
+
+.swiper-scrollbar-drag {
+  background: var(--primary-color);
 }
 
 .card-height {
