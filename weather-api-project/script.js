@@ -64,6 +64,21 @@ let weather = {
     document.querySelector(".location").style.backgroundImage =
       "url('https://source.unsplash.com/1600x900/?" + name + "')";
   },
+  fetchFiveDayForecast: function (city) {
+    fetch(
+      "api.openweathermap.org/data/2.5/forecast?q=" +
+        city +
+        "&units=metric&appid=" +
+        this.apiKey
+    )
+      .then((response) => response.json())
+      .then((data) => this.displayFiveDayForecast(data));
+  },
+  displayFiveDayForecast: function (data) {
+    const { dt_txt } = data.list[0];
+    document.querySelector("#trial").innerText = dt_txt;
+    console.log(data.list[0]);
+  },
   search: function () {
     this.fetchWeather(document.querySelector("#search-bar").value);
   },
@@ -81,35 +96,4 @@ document
     }
   });
 
-const searchInput = document.querySelector("#search-bar").value;
-
-window.myWidgetParam ? window.myWidgetParam : (window.myWidgetParam = []);
-
-window.myWidgetParam.push({
-  id: 1,
-  appid: "8cb4e74484c650ba890c9f16323ff0d5",
-  units: "metric",
-  containerid: "openweathermap-widget-1",
-});
-
-window.myWidgetParam.push({
-  id: 5,
-  appid: "8cb4e74484c650ba890c9f16323ff0d5",
-  units: "metric",
-  containerid: "openweathermap-widget-5",
-});
-
-(function () {
-  var script = document.createElement("script");
-  script.async = true;
-  script.charset = "utf-8";
-  script.src =
-    "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(script, s);
-})();
-
 weather.fetchWeather("Manila");
-
-myWidgetParam[0].city_name = "Manila";
-myWidgetParam[1].city_name = "Manila";
