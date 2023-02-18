@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+:root {
+  --primary-color: #e97451;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+.navbar-brand span {
+  color: var(--primary-color);
+}
