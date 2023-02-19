@@ -30,11 +30,17 @@
               >Lorem ipsum dolor sit amet
             </small>
           </div>
-          <div class="social-icons">
-            <i class="bi bi-facebook fs-5 me-2 text-muted"></i>
-            <i class="bi bi-twitter fs-5 me-2 text-muted"></i>
-            <i class="bi bi-instagram fs-5 text-muted"></i>
-          </div>
+          <form action="" class="d-flex">
+            <input
+              type="text"
+              class="form-control me-2"
+              placeholder="Search news"
+              id="news-query"
+            />
+            <button class="btn orange-btn" type="button" id="search">
+              Search
+            </button>
+          </form>
         </div>
       </div>
       <nav class="navbar navbar-expand-lg border-top border-bottom py-3">
@@ -64,21 +70,42 @@
                 <a
                   class="nav-link text-uppercase active fw-bold"
                   aria-current="page"
-                  href="#"
+                  href="index.html"
                   >home</a
                 >
               </li>
               <li class="nav-item border-end px-3">
-                <a class="nav-link text-uppercase fw-bold" href="#">business</a>
-              </li>
-              <li class="nav-item border-end px-3">
-                <a class="nav-link text-uppercase fw-bold" href="#"
-                  >education</a
+                <a class="nav-link text-uppercase fw-bold" href="#" id="general"
+                  >general</a
                 >
               </li>
               <li class="nav-item border-end px-3">
-                <a class="nav-link text-uppercase fw-bold" href="#"
-                  >lifestyle</a
+                <a
+                  class="nav-link text-uppercase fw-bold"
+                  href="#"
+                  id="business"
+                  >business</a
+                >
+              </li>
+              <li class="nav-item border-end px-3">
+                <a class="nav-link text-uppercase fw-bold" href="#" id="sports"
+                  >sports</a
+                >
+              </li>
+              <li class="nav-item border-end px-3">
+                <a
+                  class="nav-link text-uppercase fw-bold"
+                  href="#"
+                  id="technology"
+                  >technology</a
+                >
+              </li>
+              <li class="nav-item border-end px-3">
+                <a
+                  class="nav-link text-uppercase fw-bold"
+                  href="#"
+                  id="entertainment"
+                  >entertainment</a
                 >
               </li>
             </ul>
@@ -177,6 +204,8 @@
             <div class="col-lg-3"></div>
           </div>
         </section>
+        <div class="row" id="news-type"></div>
+        <div class="row" id="news-details"></div>
       </div>
     </main>
     <!-- Bootstrap JS -->
