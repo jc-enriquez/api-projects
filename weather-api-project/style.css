@@ -2,7 +2,7 @@
 
 body {
   font-family: "Raleway", sans-serif;
-  background-color: #edeade;
+  background: linear-gradient(to top, #09203f 0%, #537895 100%);
 }
 
 #icon {
@@ -39,10 +39,21 @@ body {
 .bi-thermometer-low {
   color: #6082b6;
 }
+
 .card {
   height: 15em;
 }
 
 #map {
   height: 100vh;
+}
+
+.bg-custom {
+  /* From https://css.glass */
+  background: rgba(226, 223, 210, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.3px);
+  -webkit-backdrop-filter: blur(4.3px);
+  border: 1px solid rgba(226, 223, 210, 0.44);
 }
