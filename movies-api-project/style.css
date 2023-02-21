@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 
 :root {
-  --primary-color: #ff0f0f;
+  --primary-color: #d22b2b;
+  --light-color: #fff;
+  --light-gray: #dbdbdb;
 }
 
 body {
@@ -23,4 +25,58 @@ body {
 
 .card-height {
   height: 27em;
+}
+
+.input-group-text {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
+.btn-help {
+  background-color: var(--light-color);
+  color: var(--primary-color);
+  border: none;
+  font-size: 1.25em;
+}
+
+.btn-help:hover {
+  background-color: var(--light-color);
+  color: var(--primary-color);
+  opacity: 0.9;
+}
+
+.btn-red {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
+.btn-red:hover {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  opacity: 0.9;
+}
+
+#current {
+  color: var(--primary-color);
+}
+
+.dropdown-menu > li {
+  cursor: pointer;
+  border-bottom: 1px solid var(--light-gray);
+}
+.dropdown-menu > li:hover {
+  background-color: var(--light-gray);
+}
+
+.dropdown-menu > li:last-of-type {
+  border-bottom: none;
+}
+
+.dropdown-menu > li.highlight {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
+.border-top-red {
+  border-top: 1px solid var(--primary-color);
 }

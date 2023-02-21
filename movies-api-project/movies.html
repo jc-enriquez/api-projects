@@ -26,7 +26,7 @@
   <body>
     <main>
       <!-- Start of Navigation -->
-      <nav class="navbar navbar-expand-lg">
+      <nav class="navbar navbar-expand-lg" id="navbar">
         <div class="container">
           <a class="navbar-brand" href="index.html">
             <img src="images/logo.png" alt="" srcset="" />
@@ -56,43 +56,75 @@
                 <a class="nav-link active" href="movies.html">Movies</a>
               </li>
             </ul>
-            <!-- Search field -->
-            <form class="" role="search" id="form">
+          </div>
+          <button
+            type="button"
+            class="btn btn-help"
+            data-bs-toggle="popover"
+            data-bs-title="Hello Visitor!"
+            data-bs-content="This application is created using TMDB API. For more information, please visit https://www.themoviedb.org/"
+          >
+            <i class="bi bi-info-circle-fill"></i>
+          </button>
+        </div>
+      </nav>
+      <!-- End of Navigation -->
+      <!-- Movies Section -->
+      <section class="container mt-3 mb-3" id="movies-section">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h1 class="fw-bold">Movies</h1>
+          <div class="d-flex">
+            <form class="me-3" role="search" id="form">
               <input
                 class="form-control rounded-pill"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
                 id="search"
+                required
               />
             </form>
-            <!-- End of Search field -->
+            <div class="dropdown">
+              <button
+                class="btn btn-red dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-funnel-fill"></i>
+              </button>
+              <ul class="dropdown-menu py-0" id="tags"></ul>
+            </div>
           </div>
         </div>
-      </nav>
-      <!-- End of Navigation -->
-      <!-- Start of Header -->
-      <header class="container">
-        <div class="text-white bg-danger rounded-5 p-5">
-          <h1 class="fw-bold">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime,
-            eius!
-          </h1>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut, maxime
-            molestiae nemo distinctio atque suscipit nam culpa iure, autem aut
-            modi explicabo esse sapiente dolorem aliquid possimus excepturi
-            officia ad amet? Dolor qui adipisci a ab, possimus tenetur error
-            expedita odio magnam dicta necessitatibus eligendi nostrum fugiat
-            distinctio ad incidunt.
-          </p>
-          <button class="btn btn-light">See more</button>
-        </div>
-      </header>
-      <!-- End of Header -->
-      <section class="container mt-5">
-        <div class="row" id="movies"></div>
+        <div class="row gy-3" id="movies"></div>
+        <nav class="mt-5 d-flex justify-content-center align-items-center">
+          <button class="btn btn-red" id="previous">
+            <i class="bi bi-chevron-double-left"></i>
+          </button>
+          <span id="current" class="mx-5 fw-bold"></span>
+          <button class="btn btn-red" id="next">
+            <i class="bi bi-chevron-double-right"></i>
+          </button>
+        </nav>
       </section>
+      <!-- End of Movies Section -->
+      <footer class="container border-top-red py-2 mt-4">
+        <div class="d-flex justify-content-between text-muted">
+          <small>
+            &copy;<span id="year"></span> John Christopher Enriquez</small
+          >
+          <small>
+            Created using
+            <a
+              href="https://developers.themoviedb.org/3"
+              class="text-muted"
+              target="_blank"
+              >TMDB API</a
+            >
+          </small>
+        </div>
+      </footer>
     </main>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

@@ -24,13 +24,17 @@ function showSeries(data) {
     const movieElement = document.createElement("div");
     movieElement.classList.add("col-lg-3");
     movieElement.innerHTML = `
-     <div class="card mb-3">
+     <div class="card h-100">
        <img
-         src="${imgUrl + poster_path}"
+         src="${
+           poster_path
+             ? imgUrl + poster_path
+             : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
+         }"
          class="card-img-top"
          alt="${name}"
          />
-         <div class="card-body">
+         <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${name}</h6>
            <div class="d-flex justify-content-between">
              <p>
