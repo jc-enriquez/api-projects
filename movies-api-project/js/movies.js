@@ -18,6 +18,7 @@ const form = document.getElementById("form");
 const search = document.getElementById("search");
 const navbar = document.getElementById("navbar");
 const tags = document.getElementById("tags");
+const overlayContent = document.getElementById("overlay-content");
 
 const previousButton = document.getElementById("previous");
 const nextButton = document.getElementById("next");
@@ -191,7 +192,22 @@ function getMovies(url) {
           inline: "nearest",
         });
       } else {
-        moviesSection.innerHTML = `<h1>No Results Found</h1>`;
+        moviesSection.innerHTML = `
+        <div class="vh-60">
+          <div class="d-flex flex-column align-items-center justify-content-evenly">
+            <img src="images/searching.gif" class="w-25" />
+            <div class="text-center">
+              <h1 class="fw-bold">No Result Found</h1>
+              <small class="text-muted d-block">It seems that the movie you're searching for is not yet in our records.</small>
+              <small class="text-muted d-block">We did not find any movies related to your search.</small>
+            </div>
+            <a href="movies.html" class="btn btn-red mt-2">Search Again</a>
+          </div>
+        </div>
+        `;
+        setTimeout(() => {
+          document.location.reload();
+        }, 20000);
       }
     });
 }
@@ -199,9 +215,11 @@ function getMovies(url) {
 function showMovies(data) {
   mainMovies.innerHTML = "";
   data.forEach((movie) => {
-    const { title, poster_path, vote_average, overview, release_date } = movie;
+    const { title, poster_path, vote_average, overview, release_date, id } =
+      movie;
     const movieElement = document.createElement("div");
     movieElement.classList.add("col-lg-3");
+    movieElement.classList.add("col-md-4");
     movieElement.innerHTML = `
      <div class="card h-100 mb-3">
        <img
@@ -222,10 +240,32 @@ function showMovies(data) {
                </p>
                <small class="d-block text-muted">${release_date}</small>
            </div>
+           <button class="btn btn-red" id="${id}">Read More</button>
          </div>
      </div>`;
 
     mainMovies.appendChild(movieElement);
+    document.getElementById(id).addEventListener("click", () => {
+      openNav();
+      const content = document.createElement("div");
+      content.innerHTML = `
+      <div class="w-50 mx-auto">
+        <div class="d-flex justify-content-center align-items-center">
+          <img
+            src="${
+              poster_path
+                ? imgUrl + poster_path
+                : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
+            }"
+            class="img-width me-3"
+            alt="${title}"
+            />
+          <p class="text-white">${overview}</p>
+        </div>
+      </div>
+      `;
+      overlayContent.append(content);
+    });
   });
 }
 
@@ -272,3 +312,13 @@ const date = new Date();
 
 let year = date.getFullYear();
 document.getElementById("year").innerText = year;
+
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+  document.getElementById("overlay-content").innerHTML = "";
+}

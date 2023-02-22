@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tanghalan - Movies</title>
+    <link rel="icon" href="images/logo.png" type="png" />
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -59,7 +60,7 @@
           </div>
           <button
             type="button"
-            class="btn btn-help"
+            class="btn btn-help d-none d-lg-block"
             data-bs-toggle="popover"
             data-bs-title="Hello Visitor!"
             data-bs-content="This application is created using TMDB API. For more information, please visit https://www.themoviedb.org/"
@@ -69,11 +70,21 @@
         </div>
       </nav>
       <!-- End of Navigation -->
+      <!-- The overlay -->
+      <div id="myNav" class="overlay">
+        <!-- Button to close the overlay navigation -->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+          >&times;</a
+        >
+        <!-- Overlay content -->
+        <div class="overlay-content" id="overlay-content"></div>
+      </div>
+      <!-- End of Overlay -->
       <!-- Movies Section -->
       <section class="container mt-3 mb-3" id="movies-section">
         <div class="d-flex align-items-center justify-content-between mb-3">
-          <h1 class="fw-bold">Movies</h1>
-          <div class="d-flex">
+          <h1 class="fw-bold d-none d-lg-block">Movies</h1>
+          <div class="d-flex mx-auto mx-lg-0">
             <form class="me-3" role="search" id="form">
               <input
                 class="form-control rounded-pill"
@@ -108,6 +119,7 @@
           </button>
         </nav>
       </section>
+
       <!-- End of Movies Section -->
       <footer class="container border-top-red py-2 mt-4">
         <div class="d-flex justify-content-between text-muted">
