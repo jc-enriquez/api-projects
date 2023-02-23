@@ -12,24 +12,7 @@ body {
 
 .active {
   position: relative;
-}
-
-.active:before {
-  content: "";
-  height: 8px;
-  width: 8px;
-  background-color: var(--primary-color);
-  border-radius: 50%;
-  position: absolute;
-  bottom: -4px;
-  display: inline-block;
-  left: 50%;
-}
-
-@media only screen and (max-width: 480px) {
-  .active:before {
-    bottom: 10px;
-  }
+  font-weight: bold;
 }
 
 .bi-star-fill {
@@ -169,4 +152,30 @@ body {
 
 .img-width {
   width: 20em;
+}
+
+.content-width {
+  width: 60%;
+  margin: auto;
+}
+
+@media screen and (max-width: 480px) {
+  .content-width {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .active:before {
+    content: "";
+    height: 8px;
+    width: 8px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    position: absolute;
+    bottom: -4px;
+    display: inline-block;
+    left: 50%;
+  }
 }

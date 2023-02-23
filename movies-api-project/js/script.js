@@ -159,13 +159,17 @@ function getTrendingPeople(url) {
 function showMoviesHome(data) {
   moviesHome.innerHTML = "";
   data.forEach((movie) => {
-    const { title, poster_path, vote_average, overview, release_date } = movie;
+    const { title, poster_path, vote_average, release_date } = movie;
     const movieElementHome = document.createElement("div");
     movieElementHome.classList.add("swiper-slide");
     movieElementHome.innerHTML = `
     <div class="card card-height">
       <img
-        src="${imgUrl + poster_path}"
+        src="${
+          poster_path
+            ? imgUrl + poster_path
+            : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
+        }"
         class="card-img-top"
         alt="${title}"
         />
@@ -190,13 +194,17 @@ function showMoviesHome(data) {
 function showSeriesHome(data) {
   seriesHome.innerHTML = "";
   data.forEach((movie) => {
-    const { name, poster_path, vote_average, overview, first_air_date } = movie;
+    const { name, poster_path, vote_average, first_air_date } = movie;
     const seriesElementHome = document.createElement("div");
     seriesElementHome.classList.add("swiper-slide");
     seriesElementHome.innerHTML = `
     <div class="card card-height">
       <img
-        src="${imgUrl + poster_path}"
+        src="${
+          poster_path
+            ? imgUrl + poster_path
+            : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
+        }"
         class="card-img-top"
         alt="${name}"
         />
@@ -225,7 +233,11 @@ function showArtistHome(data) {
     artistElementHome.innerHTML = `
     <div class="card card-height">
       <img
-        src="${imgUrl + profile_path}"
+        src="${
+          profile_path
+            ? imgUrl + profile_path
+            : "https://via.placeholder.com/1080x1580.png?text=Image+Coming+Soon"
+        }"
         class="card-img-top"
         alt="${name}"
         />
@@ -250,7 +262,9 @@ function showNowShowingMovies(data) {
        <div class="row g-0 align-items-center">
          <div class="col-md-4">
            <img src="${
-             imgUrl + poster_path
+             poster_path
+               ? imgUrl + poster_path
+               : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
            }" class="img-fluid rounded-start" alt="..." />
          </div>
          <div class="col-md-8">
@@ -278,7 +292,9 @@ function showTvSeriesToday(data) {
        <div class="row g-0 align-items-center">
          <div class="col-md-4">
            <img src="${
-             imgUrl + poster_path
+             poster_path
+               ? imgUrl + poster_path
+               : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
            }" class="img-fluid rounded-start" alt="..." />
          </div>
          <div class="col-md-8">
@@ -306,7 +322,9 @@ function showUpcomingMovies(data) {
        <div class="row g-0 align-items-center">
          <div class="col-md-4">
            <img src="${
-             imgUrl + poster_path
+             poster_path
+               ? imgUrl + poster_path
+               : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
            }" class="img-fluid rounded-start" alt="..." />
          </div>
          <div class="col-md-8">
@@ -333,7 +351,9 @@ function showTvSeriesOnAir(data) {
        <div class="row g-0 align-items-center">
          <div class="col-md-4">
            <img src="${
-             imgUrl + poster_path
+             poster_path
+               ? imgUrl + poster_path
+               : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
            }" class="img-fluid rounded-start" alt="..." />
          </div>
          <div class="col-md-8">
@@ -361,7 +381,9 @@ function showTrendingMovies(data) {
        <div class="row g-0 align-items-center">
          <div class="col-md-4">
            <img src="${
-             imgUrl + poster_path
+             poster_path
+               ? imgUrl + poster_path
+               : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
            }" class="img-fluid rounded-start" alt="..." />
          </div>
          <div class="col-md-8">
@@ -389,7 +411,9 @@ function showTrendingSeries(data) {
        <div class="row g-0 align-items-center">
          <div class="col-md-4">
            <img src="${
-             imgUrl + poster_path
+             poster_path
+               ? imgUrl + poster_path
+               : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
            }" class="img-fluid rounded-start" alt="..." />
          </div>
          <div class="col-md-8">
@@ -417,7 +441,9 @@ function showTrendingPeople(data) {
        <div class="row g-0 align-items-center">
          <div class="col-md-4">
            <img src="${
-             imgUrl + profile_path
+             profile_path
+               ? imgUrl + profile_path
+               : "https://via.placeholder.com/1080x1580.png?text=Image+Coming+Soon"
            }" class="img-fluid rounded-start" alt="..." />
          </div>
          <div class="col-md-8">

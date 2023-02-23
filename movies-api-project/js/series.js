@@ -17,6 +17,7 @@ const form = document.getElementById("form");
 const search = document.getElementById("search");
 const navbar = document.getElementById("navbar");
 const tags = document.getElementById("tags");
+const overlayContent = document.getElementById("overlay-content");
 
 const previousButton = document.getElementById("previous");
 const nextButton = document.getElementById("next");
@@ -201,7 +202,15 @@ function getSeries(url) {
 function showSeries(data) {
   mainSeries.innerHTML = "";
   data.forEach((movie) => {
-    const { name, poster_path, vote_average, overview, first_air_date } = movie;
+    const {
+      name,
+      poster_path,
+      vote_average,
+      overview,
+      first_air_date,
+      id,
+      original_language,
+    } = movie;
     const seriesElement = document.createElement("div");
     seriesElement.classList.add("col-lg-3");
     seriesElement.classList.add("col-md-4");
@@ -225,10 +234,44 @@ function showSeries(data) {
                </p>
                <small class="d-block text-muted">${first_air_date}</small>
            </div>
+           <button class="btn btn-red" id="${id}">Read More</button>
          </div>
      </div>`;
 
     mainSeries.appendChild(seriesElement);
+    document.getElementById(id).addEventListener("click", () => {
+      openNav();
+      const content = document.createElement("div");
+      content.innerHTML = `
+      <div class="content-width">
+        <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
+          <img
+            src="${
+              poster_path
+                ? imgUrl + poster_path
+                : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
+            }"
+            class="img-width me-3 mb-3"
+            alt="${name}"
+            />
+          <div class="text-white text-start">
+            <h2 class="fw-bold text-center text-lg-start">${name} (${first_air_date
+        .split("-")
+        .shift()})
+            </h2>    
+            <p class="text-center text-lg-start">
+              <i class="bi bi-star-fill"></i>
+              <span class="fw-bold mx-2">${vote_average}</span>
+              <span class="text-uppercase border-start ps-2">${first_air_date} (${original_language}) </span>
+            </p>
+            <h5 class="fw-bold text-center text-lg-start">Overview</h5>
+            <p>${overview}</p>
+          </div>
+        </div>
+      </div>
+      `;
+      overlayContent.append(content);
+    });
   });
 }
 
@@ -275,3 +318,13 @@ const date = new Date();
 
 let year = date.getFullYear();
 document.getElementById("year").innerText = year;
+
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+  document.getElementById("overlay-content").innerHTML = "";
+}

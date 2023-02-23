@@ -145,7 +145,6 @@ function highlightGenre() {
   tags.forEach((tag) => {
     tag.classList.remove("highlight");
   });
-
   if (selectedGenre.length != 0) {
     selectedGenre.forEach((id) => {
       const highlightedTag = document.getElementById(id);
@@ -215,8 +214,15 @@ function getMovies(url) {
 function showMovies(data) {
   mainMovies.innerHTML = "";
   data.forEach((movie) => {
-    const { title, poster_path, vote_average, overview, release_date, id } =
-      movie;
+    const {
+      title,
+      poster_path,
+      vote_average,
+      overview,
+      release_date,
+      id,
+      original_language,
+    } = movie;
     const movieElement = document.createElement("div");
     movieElement.classList.add("col-lg-3");
     movieElement.classList.add("col-md-4");
@@ -237,7 +243,7 @@ function showMovies(data) {
              <p>
                <i class="bi bi-star-fill"></i>
                <span class="fw-bold ms-2">${vote_average}</span>
-               </p>
+              </p>
                <small class="d-block text-muted">${release_date}</small>
            </div>
            <button class="btn btn-red" id="${id}">Read More</button>
@@ -249,18 +255,30 @@ function showMovies(data) {
       openNav();
       const content = document.createElement("div");
       content.innerHTML = `
-      <div class="w-50 mx-auto">
-        <div class="d-flex justify-content-center align-items-center">
+      <div class="content-width">
+        <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
           <img
             src="${
               poster_path
                 ? imgUrl + poster_path
                 : "https://via.placeholder.com/1080x1580.png?text=Poster+Coming+Soon"
             }"
-            class="img-width me-3"
+            class="img-width me-3 mb-3"
             alt="${title}"
             />
-          <p class="text-white">${overview}</p>
+          <div class="text-white text-start">
+            <h2 class="fw-bold text-center text-lg-start">${title} (${release_date
+        .split("-")
+        .shift()})
+            </h2>    
+            <p class="text-center text-lg-start">
+              <i class="bi bi-star-fill"></i>
+              <span class="fw-bold mx-2">${vote_average}</span>
+              <span class="text-uppercase border-start ps-2">${release_date} (${original_language}) </span>
+            </p>
+            <h5 class="fw-bold text-center text-lg-start">Overview</h5>
+            <p>${overview}</p>
+          </div>
         </div>
       </div>
       `;
