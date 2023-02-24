@@ -3,6 +3,7 @@
 :root {
   --primary-color: #e97451;
   --light-color: #fff;
+  --dark-color: #000;
 }
 
 body {
@@ -22,4 +23,21 @@ body {
   background-color: var(--primary-color);
   color: var(--light-color);
   opacity: 0.9;
+}
+
+.nav-pills .nav-link:not(.active) {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+.nav-pills .nav-link.active {
+  background-color: #fff;
+  color: #000;
+  border-radius: 0;
+  font-weight: bold;
+}
+
+.content-img {
+  height: 18em;
+  object-fit: cover;
 }
