@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text&display=swap");
+
+:root {
+  --primary-color: #228b22;
+  --light-color: #fff;
+}
+
+body {
+  font-family: "Golos Text", sans-serif;
+}
+
+#hero {
+  background-image: url("images/header.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 60vh;
+}
+
+#hero h1 {
+  color: var(--primary-color);
+}
+
+.card-height {
+  height: 28em;
+}
+
+.btn-green img {
+  height: 2em;
+  filter: invert(28%) sepia(99%) saturate(1880%) hue-rotate(100deg)
+    brightness(92%) contrast(73%);
+  pointer-events: none;
+}
+
+.btn-green {
+  border: 1px solid var(--primary-color);
+}
+
+.btn-green:hover {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
+.btn-green:focus {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
+.btn-green:hover img {
+  filter: invert(99%) sepia(0%) saturate(0%) hue-rotate(210deg) brightness(103%)
+    contrast(100%);
+}
+
+.btn-active {
+  background-color: var(--primary-color);
+}
+.btn-active img {
+  filter: invert(99%) sepia(0%) saturate(0%) hue-rotate(210deg) brightness(103%)
+    contrast(100%);
+}

@@ -15,13 +15,248 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
     />
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
     <!-- Main CSS -->
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body class="container">
+    <nav class="navbar my-4">
+      <a class="navbar-brand me-auto fw-bold" href="index.html">Kubyertos</a>
+      <small class="text-muted d-block"
+        >Created using
+        <a href="https://www.themealdb.com/api.php" target="_blank"
+          >TheMealDB API</a
+        ></small
+      >
+    </nav>
+    <header id="hero" class="rounded-4">
+      <div
+        class="h-100 w-50 mx-auto d-flex flex-column align-items-center justify-content-center"
+      >
+        <h1 class="text-capitalize fw-bold text-center">
+          discover new recipes today!
+        </h1>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            ><i class="bi bi-search"></i
+          ></span>
+          <input
+            type="text"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            placeholder="Search for a new recipe..."
+          />
+        </div>
+      </div>
+    </header>
+    <!-- Slider main container -->
+    <div class="swiper swiper-categories mt-4">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="home">
+            <img
+              src="images/home.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="beef">
+            <img
+              src="images/beef.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="chicken">
+            <img
+              src="images/chicken.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="dessert">
+            <img
+              src="images/dessert.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="lamb">
+            <img
+              src="images/lamb.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="miscellaneous">
+            <img
+              src="images/miscellaneous.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="pasta">
+            <img
+              src="images/pasta.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="pork">
+            <img
+              src="images/pork.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="seafood">
+            <img
+              src="images/seafood.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="side">
+            <img
+              src="images/side.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="starter">
+            <img
+              src="images/starter.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="vegan">
+            <img
+              src="images/vegan.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="vegetarian">
+            <img
+              src="images/vegetarian.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="breakfast">
+            <img
+              src="images/breakfast.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+        <div class="swiper-slide">
+          <button class="btn btn-sm btn-green" id="goat">
+            <img
+              src="images/goat.svg"
+              alt=""
+              srcset=""
+              class="d-block mx-auto"
+            />
+          </button>
+        </div>
+      </div>
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+    <main>
+      <div id="main-sliders" class="my-3">
+        <div id="random-meal"></div>
+        <div class="mb-3">
+          <h2 class="fw-bold">American Food</h2>
+          <div class="swiper swiper-food">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper" id="american-food"></div>
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <h2 class="fw-bold">Japanese Food</h2>
+          <div class="swiper swiper-food">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper" id="japanese-food"></div>
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <h2 class="fw-bold">French Food</h2>
+          <div class="swiper swiper-food">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper" id="french-food"></div>
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </div>
+      <div id="main-info" class="my-3"></div>
+      <div id="main-content" class="row gy-3 my-3"></div>
+    </main>
+    <footer></footer>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <!-- Main JS -->
     <script src="script.js"></script>
   </body>
