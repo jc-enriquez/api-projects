@@ -1,4 +1,5 @@
 const apiKey = "&apiKey=9fd7afaa37fb45628cd77d06178bb991";
+const apiKeyNewsData = "apikey=pub_177656fbf23b14691aad3e9f92ee9a0420169";
 const baseUrl = "https://newsapi.org/v2/top-headlines?country=ph";
 
 const generalNewsUrl = baseUrl + "&category=general" + apiKey;
@@ -9,6 +10,26 @@ const entertainmentNewsUrl = baseUrl + "&category=entertainment" + apiKey;
 const healthNewsUrl = baseUrl + "&category=health" + apiKey;
 const scienceNewsUrl = baseUrl + "&category=science" + apiKey;
 
+const worldNewsUrl =
+  "https://newsdata.io/api/1/news?" +
+  apiKeyNewsData +
+  "&category=world&language=en";
+
+const trendingNewsUrl =
+  "https://newsdata.io/api/1/news?" +
+  apiKeyNewsData +
+  "&category=top&language=en";
+
+const peopleUrl =
+  "https://dummyjson.com/users?limit=3&select=firstName,lastName,image,email";
+
+const commentUrl = "https://dummyjson.com/comments?limit=5&skip=5&select=body";
+
+const worldContent = document.getElementById("world-content");
+const featuredContent = document.getElementById("featured-content");
+const trendingContent = document.getElementById("trending-content");
+const peopleContent = document.getElementById("people-content");
+const commentContent = document.getElementById("comment-content");
 const generalContent = document.getElementById("general-content");
 const businessContent = document.getElementById("business-content");
 const sportsContent = document.getElementById("sports-content");
@@ -17,6 +38,11 @@ const entertainmentContent = document.getElementById("entertainment-content");
 const healthContent = document.getElementById("health-content");
 const scienceContent = document.getElementById("science-content");
 
+getWorldNews(worldNewsUrl);
+getFeaturedNews(worldNewsUrl);
+getTrendingNews(trendingNewsUrl);
+getPeople(peopleUrl);
+getComments(commentUrl);
 getGeneralNews(generalNewsUrl);
 getBusinessNews(businessNewsUrl);
 getSportsNews(sportsNewsUrl);
@@ -25,24 +51,70 @@ getTechnologyNews(technologyNewsUrl);
 getHealthNews(healthNewsUrl);
 getScienceNews(scienceNewsUrl);
 
+function getWorldNews(url) {
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      showWorldNews(data.results.slice(1, 5));
+      //console.log(data.results);
+    });
+}
+
+function getFeaturedNews(url) {
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status == "success") {
+        showFeaturedNews(data.results.slice(0, 1));
+      } else {
+        featuredContent.innerHTML = `<p class="text-dark">Unable to retrieve news as of the moment</p>`;
+      }
+    });
+}
+
+function getTrendingNews(url) {
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      showTrendingNews(data.results.slice(0, 4));
+      //console.log(data.results);
+    });
+}
+
+function getPeople(url) {
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      showPeople(data.users);
+      //console.log(data.users);
+    });
+}
+
+function getComments(url) {
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      showComment(data.comments);
+    });
+}
+
 function getGeneralNews(url) {
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
       if (data.status === "ok") {
-        showGeneralNews(data.articles);
+        showGeneralNews(data.articles.slice(0, 10));
       } else {
         generalContent.innerHTML = `
         <div class="d-flex flex-column align-items-center justify-content-center">
           <img src="images/sad.gif" class="w-25">
-          <div class="w-50 text-center">
+          <div class="text-center error-msg">
             <h5>Sorry, we cannot diplay news as of the moment</h5>
             <small class="text-muted">Too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests.</small>
           </div>
         </div>
         `;
       }
-      //console.log(data.articles);
     });
 }
 
@@ -51,12 +123,12 @@ function getBusinessNews(url) {
     .then((res) => res.json())
     .then((data) => {
       if (data.status === "ok") {
-        showBusinessNews(data.articles);
+        showBusinessNews(data.articles.slice(0, 10));
       } else {
         businessContent.innerHTML = `
         <div class="d-flex flex-column align-items-center justify-content-center">
           <img src="images/sad.gif" class="w-25">
-          <div class="w-50 text-center">
+          <div class="text-center error-msg">
             <h5>Sorry, we cannot diplay news as of the moment</h5>
             <small class="text-muted">Too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests.</small>
           </div>
@@ -71,12 +143,12 @@ function getSportsNews(url) {
     .then((res) => res.json())
     .then((data) => {
       if (data.status === "ok") {
-        showSportsNews(data.articles);
+        showSportsNews(data.articles.slice(0, 10));
       } else {
         sportsContent.innerHTML = `
         <div class="d-flex flex-column align-items-center justify-content-center">
           <img src="images/sad.gif" class="w-25">
-          <div class="w-50 text-center">
+          <div class="text-center error-msg">
             <h5>Sorry, we cannot diplay news as of the moment</h5>
             <small class="text-muted">Too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests.</small>
           </div>
@@ -91,12 +163,12 @@ function getTechnologyNews(url) {
     .then((res) => res.json())
     .then((data) => {
       if (data.status === "ok") {
-        showTechnologyNews(data.articles);
+        showTechnologyNews(data.articles.slice(0, 10));
       } else {
         technologyContent.innerHTML = `
         <div class="d-flex flex-column align-items-center justify-content-center">
           <img src="images/sad.gif" class="w-25">
-          <div class="w-50 text-center">
+          <div class="text-center error-msg">
             <h5>Sorry, we cannot diplay news as of the moment</h5>
             <small class="text-muted">Too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests.</small>
           </div>
@@ -111,12 +183,12 @@ function getEntertainmentNews(url) {
     .then((res) => res.json())
     .then((data) => {
       if (data.status === "ok") {
-        showEntertainmentNews(data.articles);
+        showEntertainmentNews(data.articles.slice(0, 10));
       } else {
         entertainmentContent.innerHTML = `
         <div class="d-flex flex-column align-items-center justify-content-center">
           <img src="images/sad.gif" class="w-25">
-          <div class="w-50 text-center">
+          <div class="text-center error-msg">
             <h5>Sorry, we cannot diplay news as of the moment</h5>
             <small class="text-muted">Too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests.</small>
           </div>
@@ -131,12 +203,12 @@ function getHealthNews(url) {
     .then((res) => res.json())
     .then((data) => {
       if (data.status === "ok") {
-        showHealthNews(data.articles);
+        showHealthNews(data.articles.slice(0, 10));
       } else {
         healthContent.innerHTML = `
         <div class="d-flex flex-column align-items-center justify-content-center">
           <img src="images/sad.gif" class="w-25">
-          <div class="w-50 text-center">
+          <div class="text-center error-msg">
             <h5>Sorry, we cannot diplay news as of the moment</h5>
             <small class="text-muted">Too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests.</small>
           </div>
@@ -151,12 +223,12 @@ function getScienceNews(url) {
     .then((res) => res.json())
     .then((data) => {
       if (data.status === "ok") {
-        showScienceNews(data.articles);
+        showScienceNews(data.articles.slice(0, 10));
       } else {
         scienceContent.innerHTML = `
         <div class="d-flex flex-column align-items-center justify-content-center">
           <img src="images/sad.gif" class="w-25">
-          <div class="w-50 text-center">
+          <div class="text-center error-msg">
             <h5>Sorry, we cannot diplay news as of the moment</h5>
             <small class="text-muted">Too many requests recently. Developer accounts are limited to 100 requests over a 24 hour period (50 requests available every 12 hours). Please upgrade to a paid plan if you need more requests.</small>
           </div>
@@ -166,8 +238,172 @@ function getScienceNews(url) {
     });
 }
 
+function showWorldNews(data) {
+  data.forEach((results) => {
+    const { title, pubDate, image_url, link } = results;
+    const worldElement = document.createElement("div");
+    worldElement.classList.add("card");
+    worldElement.classList.add("mb-3");
+    worldElement.classList.add("border-0");
+    worldElement.classList.add("border-bottom");
+    worldElement.classList.add("pb-2");
+    worldElement.innerHTML = `
+    <div class="row g-0 align-items-center">
+      <div class="col-md-4">
+        <img
+          src="${
+            image_url
+              ? image_url
+              : "https://source.unsplash.com/250x250/?" + title.split(" ")[0]
+          }"
+          class="square-img"
+          alt="${title}"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h6 class="card-title fw-bold">
+            ${title.slice(0, 35) + "..."}
+          </h6>
+          <p class="card-text">
+            <a href="${link}" target="_blank" class="orange-text me-2"><i class="bi bi-box-arrow-up-right"></i></a><small class="text-muted">${pubDate}</small>
+          </p>
+      </div>
+    </div>
+    `;
+    worldContent.appendChild(worldElement);
+  });
+}
+
+function showFeaturedNews(data) {
+  data.forEach((results) => {
+    const { title, description, image_url, link, pubDate } = results;
+    const featuredElement = document.createElement("div");
+    featuredElement.classList.add("card");
+    featuredElement.innerHTML = `
+    <img
+      src="${image_url}"
+      class="img-fluid"
+      alt=""
+    />
+    <div class="card-img-overlay d-flex flex-column justify-content-end">
+      <a class="btn orange-btn" href="${link}" target="_blank">Read</a>
+      <h5 class="card-title">${title}</h5>
+      <p class="card-text">
+        ${description}
+      </p>
+      <p class="card-text">
+        <small>${pubDate}</small>
+      </p>
+    </div>
+    `;
+    featuredContent.appendChild(featuredElement);
+  });
+}
+
+function showTrendingNews(data) {
+  data.forEach((results) => {
+    const { title, pubDate, image_url, link } = results;
+    const trendingElement = document.createElement("div");
+    trendingElement.classList.add("card");
+    trendingElement.classList.add("mb-3");
+    trendingElement.classList.add("border-0");
+    trendingElement.classList.add("border-bottom");
+    trendingElement.classList.add("pb-2");
+    trendingElement.innerHTML = `
+    <div class="row g-0 align-items-center">
+      <div class="col-md-4">
+        <img
+          src="${
+            image_url
+              ? image_url
+              : "https://source.unsplash.com/250x250/?" + title.split(" ")[0]
+          }"
+          class="square-img"
+          alt="${title}"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h6 class="card-title fw-bold">
+            ${title.slice(0, 35) + "..."}
+          </h6>
+          <p class="card-text">
+            <a href="${link}" target="_blank" class="orange-text me-2"><i class="bi bi-box-arrow-up-right"></i></a><small class="text-muted">${pubDate}</small>
+          </p>
+      </div>
+    </div>
+    `;
+    trendingContent.appendChild(trendingElement);
+  });
+}
+
+function showPeople(data) {
+  data.forEach((users) => {
+    const { firstName, lastName, image, email } = users;
+    const peopleElement = document.createElement("div");
+    peopleElement.classList.add("card");
+    peopleElement.classList.add("mb-3");
+    peopleElement.classList.add("border-0");
+    peopleElement.classList.add("border-bottom");
+    peopleElement.classList.add("pb-2");
+    peopleElement.innerHTML = `
+    <div class="row g-0 align-items-center">
+      <div class="col-md-4">
+        <img
+          src="${
+            image
+              ? image
+              : "https://source.unsplash.com/250x250/?" +
+                firstName.split(" ")[0]
+          }"
+          class="square-img"
+          alt="${firstName}"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h6 class="card-title fw-bold">
+            ${firstName} ${lastName}
+          </h6>
+          <p class="card-text">
+            <small class="text-muted">${email}</small>
+          </p>
+      </div>
+    </div>
+    `;
+    peopleContent.appendChild(peopleElement);
+  });
+}
+
+function showComment(data) {
+  data.forEach((comments) => {
+    const { body } = comments;
+    const { username } = comments.user;
+    const commentElement = document.createElement("li");
+    commentElement.classList.add("list-group-item");
+    commentElement.classList.add("mb-3");
+    commentElement.classList.add("border-0");
+    commentElement.classList.add("border-bottom");
+    commentElement.classList.add("pb-2");
+    commentElement.innerHTML = `
+    <div class="d-flex flex-column">
+      <div class="d-flex">
+        <i class="bi bi-dot orange-text"></i>
+        <span class="text-muted text-start">${body}</span>
+      </div>
+      <div class="ms-3">
+        <small class="text-muted">
+         by<span class="orange-text fw-bold ms-2">${username}</span>
+        </small>
+      </div>
+    </div>
+    `;
+    commentContent.appendChild(commentElement);
+  });
+}
+
 function showGeneralNews(data) {
-  generalContent.innerHTML = "";
   data.forEach((articles) => {
     const { title, url, urlToImage, publishedAt } = articles;
     const generalElement = document.createElement("div");
@@ -178,7 +414,7 @@ function showGeneralNews(data) {
       src="${
         urlToImage
           ? urlToImage
-          : "https://via.placeholder.com/1080x1580.png?text=Image+Coming+Soon"
+          : "https://source.unsplash.com/250x250/?" + title.split(" ")[0]
       }"
       class="content-img"
       alt="${title}"
@@ -196,7 +432,6 @@ function showGeneralNews(data) {
 }
 
 function showBusinessNews(data) {
-  businessContent.innerHTML = "";
   data.forEach((articles) => {
     const { title, url, urlToImage, publishedAt } = articles;
     const businessElement = document.createElement("div");
@@ -207,7 +442,7 @@ function showBusinessNews(data) {
       src="${
         urlToImage
           ? urlToImage
-          : "https://via.placeholder.com/1080x1580.png?text=Image+Coming+Soon"
+          : "https://source.unsplash.com/250x250/?" + title.split(" ")[0]
       }"
       class="content-img"
       alt="${title}"
@@ -225,7 +460,6 @@ function showBusinessNews(data) {
 }
 
 function showSportsNews(data) {
-  sportsContent.innerHTML = "";
   data.forEach((articles) => {
     const { title, url, urlToImage, publishedAt } = articles;
     const sportsElement = document.createElement("div");
@@ -236,7 +470,7 @@ function showSportsNews(data) {
       src="${
         urlToImage
           ? urlToImage
-          : "https://via.placeholder.com/1080x1580.png?text=Image+Coming+Soon"
+          : "https://source.unsplash.com/250x250/?" + title.split(" ")[0]
       }"
       class="content-img"
       alt="${title}"
@@ -254,7 +488,6 @@ function showSportsNews(data) {
 }
 
 function showTechnologyNews(data) {
-  technologyContent.innerHTML = "";
   data.forEach((articles) => {
     const { title, url, urlToImage, publishedAt } = articles;
     const technologyElement = document.createElement("div");
@@ -265,7 +498,7 @@ function showTechnologyNews(data) {
       src="${
         urlToImage
           ? urlToImage
-          : "https://via.placeholder.com/1080x1580.png?text=Image+Coming+Soon"
+          : "https://source.unsplash.com/250x250/?" + title.split(" ")[0]
       }"
       class="content-img"
       alt="${title}"
@@ -283,7 +516,6 @@ function showTechnologyNews(data) {
 }
 
 function showEntertainmentNews(data) {
-  technologyContent.innerHTML = "";
   data.forEach((articles) => {
     const { title, url, urlToImage, publishedAt } = articles;
     const entertainmentElement = document.createElement("div");
@@ -294,7 +526,7 @@ function showEntertainmentNews(data) {
       src="${
         urlToImage
           ? urlToImage
-          : "https://via.placeholder.com/1080x1580.png?text=Image+Coming+Soon"
+          : "https://source.unsplash.com/250x250/?" + title.split(" ")[0]
       }"
       class="content-img"
       alt="${title}"
@@ -312,7 +544,6 @@ function showEntertainmentNews(data) {
 }
 
 function showHealthNews(data) {
-  healthContent.innerHTML = "";
   data.forEach((articles) => {
     const { title, url, urlToImage, publishedAt } = articles;
     const healthElement = document.createElement("div");
@@ -323,7 +554,7 @@ function showHealthNews(data) {
       src="${
         urlToImage
           ? urlToImage
-          : "https://via.placeholder.com/1080x1580.png?text=Image+Coming+Soon"
+          : "https://source.unsplash.com/250x250/?" + title.split(" ")[0]
       }"
       class="content-img"
       alt="${title}"
@@ -341,7 +572,6 @@ function showHealthNews(data) {
 }
 
 function showScienceNews(data) {
-  scienceContent.innerHTML = "";
   data.forEach((articles) => {
     const { title, url, urlToImage, publishedAt } = articles;
     const scienceElement = document.createElement("div");
@@ -352,7 +582,7 @@ function showScienceNews(data) {
       src="${
         urlToImage
           ? urlToImage
-          : "https://via.placeholder.com/1080x1580.png?text=Image+Coming+Soon"
+          : "https://source.unsplash.com/250x250/?" + title.split(" ")[0]
       }"
       class="content-img"
       alt="${title}"
@@ -369,7 +599,33 @@ function showScienceNews(data) {
   });
 }
 
+const calendar = new VanillaCalendar("#vanilla-calendar", {});
+calendar.init();
+
 const date = new Date();
+const today = new Date().toLocaleDateString();
 
 let year = date.getFullYear();
 document.getElementById("year").innerText = year;
+document.getElementById("date").innerText = today;
+
+const imgContainer = document.getElementById("img-container");
+const unsplashUrl = "https://source.unsplash.com/random/";
+const row = 5;
+
+for (let img = 0; img < 6; img++) {
+  const column = document.createElement("div");
+  const img = document.createElement("img");
+  column.classList.add("col-4");
+  img.src = `${unsplashUrl}${getRandomSize()}`;
+  column.appendChild(img);
+  imgContainer.appendChild(column);
+}
+
+function getRandomSize() {
+  return `${getRandomNumber()}x${getRandomNumber()}`;
+}
+
+function getRandomNumber() {
+  return Math.floor(10 * Math.random()) + 300;
+}

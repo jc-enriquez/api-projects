@@ -4,6 +4,7 @@
   --primary-color: #e97451;
   --light-color: #fff;
   --dark-color: #000;
+  --gray-color: #d3d3d3;
 }
 
 body {
@@ -12,6 +13,16 @@ body {
 
 .navbar-brand span {
   color: var(--primary-color);
+}
+
+.orange-text {
+  color: var(--primary-color);
+}
+
+.square-img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
 }
 
 .orange-btn {
@@ -31,13 +42,45 @@ body {
 }
 
 .nav-pills .nav-link.active {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--light-color);
+  color: var(--primary-color);
   border-radius: 0;
   font-weight: bold;
+}
+
+.nav-item {
+  border-right: 1px solid var(--gray-color);
+}
+
+.nav-item:last-of-type {
+  border-right: none;
+}
+
+@media screen and (max-width: 769px) {
+  .nav-item {
+    border: none;
+  }
 }
 
 .content-img {
   height: 18em;
   object-fit: cover;
+}
+
+#img-container img {
+  object-fit: cover;
+  height: 95px;
+  width: 95px;
+}
+
+@media screen and (max-width: 481px) {
+  .error-msg {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .error-msg {
+    width: 50%;
+  }
 }
