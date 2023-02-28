@@ -40,18 +40,22 @@
         <h1 class="text-capitalize fw-bold text-center">
           discover new recipes today!
         </h1>
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="inputGroup-sizing-default"
-            ><i class="bi bi-search"></i
-          ></span>
-          <input
-            type="text"
-            class="form-control"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            placeholder="Search for a new recipe..."
-          />
-        </div>
+        <form action="" id="form" class="w-100">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default"
+              ><i class="bi bi-search"></i
+            ></span>
+            <input
+              type="text"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              placeholder="Search for a new recipe..."
+              id="search-input"
+              required
+            />
+          </div>
+        </form>
       </div>
     </header>
     <!-- Slider main container -->
@@ -59,16 +63,6 @@
       <!-- Additional required wrapper -->
       <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide">
-          <button class="btn btn-sm btn-green" id="home">
-            <img
-              src="images/home.svg"
-              alt=""
-              srcset=""
-              class="d-block mx-auto"
-            />
-          </button>
-        </div>
         <div class="swiper-slide">
           <button class="btn btn-sm btn-green" id="beef">
             <img
@@ -215,36 +209,74 @@
       <div class="swiper-button-next"></div>
     </div>
     <main>
+      <!-- The overlay -->
+      <div id="myNav" class="overlay">
+        <!-- Button to close the overlay navigation -->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+          >&times;</a
+        >
+        <!-- Overlay content -->
+        <div class="overlay-content" id="overlay-content"></div>
+      </div>
+      <!-- End of Overlay -->
+      <div id="main-search" class="row gy-3 my-3">
+        <div id="main-search-heading"></div>
+      </div>
       <div id="main-sliders" class="my-3">
         <div id="random-meal"></div>
         <div class="mb-3">
-          <h2 class="fw-bold">American Food</h2>
-          <div class="swiper swiper-food">
-            <!-- Additional required wrapper -->
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h3 class="fw-bold">American Food</h3>
+            <div class="d-flex">
+              <div
+                class="swiper-button-prev-american swiper-nav rounded-3 me-2"
+              >
+                <i class="bi bi-chevron-left"></i>
+              </div>
+              <div class="swiper-button-next-american swiper-nav rounded-3">
+                <i class="bi bi-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+          <div class="swiper swiper-american">
             <div class="swiper-wrapper" id="american-food"></div>
-            <!-- If we need navigation buttons -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
         <div class="mb-3">
-          <h2 class="fw-bold">Japanese Food</h2>
-          <div class="swiper swiper-food">
-            <!-- Additional required wrapper -->
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h3 class="fw-bold">Japanese Food</h3>
+            <div class="d-flex">
+              <div
+                class="swiper-button-prev-japanese swiper-nav rounded-3 me-2"
+              >
+                <i class="bi bi-chevron-left"></i>
+              </div>
+              <div class="swiper-button-next-japanese swiper-nav rounded-3">
+                <i class="bi bi-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+          <div class="swiper swiper-japanese">
             <div class="swiper-wrapper" id="japanese-food"></div>
-            <!-- If we need navigation buttons -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
         <div class="mb-3">
-          <h2 class="fw-bold">French Food</h2>
-          <div class="swiper swiper-food">
-            <!-- Additional required wrapper -->
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h3 class="fw-bold">French Food</h3>
+            <div class="d-flex">
+              <div class="swiper-button-prev-french swiper-nav rounded-3 me-2">
+                <i class="bi bi-chevron-left"></i>
+              </div>
+              <div class="swiper-button-next-french swiper-nav rounded-3">
+                <i class="bi bi-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+          <div class="swiper swiper-french">
             <div class="swiper-wrapper" id="french-food"></div>
-            <!-- If we need navigation buttons -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
       </div>

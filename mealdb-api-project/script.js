@@ -1,31 +1,63 @@
 const swiper = new Swiper(".swiper-categories", {
   slidesPerView: 15,
-
-  // Navigation arrows
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
   },
 });
 
-const swiperFood = new Swiper(".swiper-food", {
+const swiperAmerican = new Swiper(".swiper-american", {
   slidesPerView: 4,
   spaceBetween: 30,
-  // Navigation arrows
+  grabCursor: true,
   navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
+    nextEl: ".swiper-button-next-american",
+    prevEl: ".swiper-button-prev-american",
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    type: "progressbar",
+  },
+});
+
+const swiperJapanese = new Swiper(".swiper-japanese", {
+  slidesPerView: 4,
+  spaceBetween: 30,
+  grabCursor: true,
+  navigation: {
+    nextEl: ".swiper-button-next-japanese",
+    prevEl: ".swiper-button-prev-japanese",
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    type: "progressbar",
+  },
+});
+
+const swiperFrench = new Swiper(".swiper-french", {
+  slidesPerView: 4,
+  spaceBetween: 30,
+  grabCursor: true,
+  navigation: {
+    nextEl: ".swiper-button-next-french",
+    prevEl: ".swiper-button-prev-french",
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    type: "progressbar",
   },
 });
 
 const mainContent = document.getElementById("main-content");
 const mainInfo = document.getElementById("main-info");
 const mainSliders = document.getElementById("main-sliders");
+const mainSearch = document.getElementById("main-search");
+const mainSearchHeading = document.getElementById("main-search-heading");
+const form = document.getElementById("form");
 const randomMealElement = document.getElementById("random-meal");
 const americanFoodContent = document.getElementById("american-food");
 const japaneseFoodContent = document.getElementById("japanese-food");
 const frenchFoodContent = document.getElementById("french-food");
-const homeButton = document.getElementById("home-button");
 const beefButton = document.getElementById("beef");
 const chickenButton = document.getElementById("chicken");
 const dessertButton = document.getElementById("dessert");
@@ -40,6 +72,7 @@ const veganButton = document.getElementById("vegan");
 const vegetarianButton = document.getElementById("vegetarian");
 const breakfastButton = document.getElementById("breakfast");
 const goatButton = document.getElementById("goat");
+const overlayContent = document.getElementById("overlay-content");
 
 const buttons = Array.from(document.querySelectorAll(".btn-green"));
 
@@ -126,6 +159,49 @@ getGoatCategory(goatCategory);
 getAmericanFood(americanFood);
 getJapaneseFood(japaneseFood);
 getFrenchFood(frenchFood);
+
+form.addEventListener("submit", getMealList);
+
+function getMealList(e) {
+  e.preventDefault();
+  let searchInput = document.getElementById("search-input").value.trim();
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.meals);
+      mainContent.innerHTML = "";
+      mainSliders.innerHTML = "";
+      mainInfo.innerHTML = "";
+      if (data.meals) {
+        data.meals.forEach((meals) => {
+          const { idMeal, strMeal, strMealThumb } = meals;
+          let mainSearchElement = document.createElement("div");
+          mainSearchElement.classList.add("col-lg-3");
+          mainSearchElement.classList.add("col-md-4");
+          mainSearchElement.innerHTML = `
+            <div class="card h-100 mb-3" data-id=${idMeal}>
+              <img
+                src="${strMealThumb}"
+                class="card-img-top"
+                alt="${strMeal}"
+                />
+              <div class="card-body d-flex flex-column justify-content-center">
+                <h6 class="card-title fw-bold text-center">${strMeal}</h6>
+                  <button class="btn btn-view rounded-pill w-50 mx-auto mt-2">View Recipe</button>
+              </div>
+            </div>`;
+          mainSearch.appendChild(mainSearchElement);
+        });
+        const mainSearchHeadingElement = document.createElement("h3");
+        mainSearchHeadingElement.classList.add("fw-bold");
+        mainSearchHeadingElement.classList.add("mb-3");
+        mainSearchHeadingElement.classList.add("text-capitalize");
+        mainSearchHeadingElement.innerText =
+          "Top Results for " + `"` + searchInput + `"`;
+        mainSearchHeading.append(mainSearchHeadingElement);
+      }
+    });
+}
 
 function getAmericanFood(url) {
   fetch(url)
@@ -305,7 +381,7 @@ function showAmericanFood(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -327,7 +403,7 @@ function showJapaneseFood(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -349,7 +425,7 @@ function showFrenchFood(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -375,7 +451,7 @@ function showBeefCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -411,7 +487,7 @@ function showChickenCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -446,7 +522,7 @@ function showDessertCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -481,7 +557,7 @@ function showLambCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -516,7 +592,7 @@ function showMiscellaneousCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -551,7 +627,7 @@ function showPastaCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -586,7 +662,7 @@ function showPorkCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -621,7 +697,7 @@ function showSeafoodCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -656,7 +732,7 @@ function showSideCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -691,7 +767,7 @@ function showStarterCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Button</button>
          </div>
      </div>
     `;
@@ -726,7 +802,7 @@ function showVeganCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Button</button>
          </div>
      </div>
     `;
@@ -761,7 +837,7 @@ function showVegetarianCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -796,7 +872,7 @@ function showBreakfastCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -831,7 +907,7 @@ function showGoatCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-green" id="${idMeal}">Read More</button>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
@@ -846,4 +922,12 @@ function showGoatCategory(data) {
     "The domestic goat or simply goat (Capra aegagrus hircus) is a subspecies of C. aegagrus domesticated from the wild goat of Southwest Asia and Eastern Europe. The goat is a member of the animal family Bovidae and the subfamily Caprinae, meaning it is closely related to the sheep. There are over 300 distinct breeds of goat. Goats are one of the oldest domesticated species of animal, and have been used for milk, meat, fur and skins across much of the world. Milk from goats is often turned into goat cheese.";
   mainInfo.append(mainHeading);
   mainInfo.append(mainDescription);
+}
+
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
 }

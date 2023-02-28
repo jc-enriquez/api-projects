@@ -25,11 +25,23 @@ const peopleUrl =
 
 const commentUrl = "https://dummyjson.com/comments?limit=5&skip=5&select=body";
 
+const popularUrl =
+  "https://newsdata.io/api/1/news?" +
+  apiKeyNewsData +
+  "&category=entertainment&language=en";
+
+const latestUrl =
+  "https://newsdata.io/api/1/news?" +
+  apiKeyNewsData +
+  "&category=politics&language=en";
+
 const worldContent = document.getElementById("world-content");
 const featuredContent = document.getElementById("featured-content");
 const trendingContent = document.getElementById("trending-content");
 const peopleContent = document.getElementById("people-content");
 const commentContent = document.getElementById("comment-content");
+const popularContent = document.getElementById("popular-content");
+const latestContent = document.getElementById("latest-content");
 const generalContent = document.getElementById("general-content");
 const businessContent = document.getElementById("business-content");
 const sportsContent = document.getElementById("sports-content");
@@ -43,6 +55,8 @@ getFeaturedNews(worldNewsUrl);
 getTrendingNews(trendingNewsUrl);
 getPeople(peopleUrl);
 getComments(commentUrl);
+getPopularNews(popularUrl);
+getLatestNews(latestUrl);
 getGeneralNews(generalNewsUrl);
 getBusinessNews(businessNewsUrl);
 getSportsNews(sportsNewsUrl);
@@ -56,7 +70,6 @@ function getWorldNews(url) {
     .then((res) => res.json())
     .then((data) => {
       showWorldNews(data.results.slice(1, 5));
-      //console.log(data.results);
     });
 }
 
@@ -64,10 +77,10 @@ function getFeaturedNews(url) {
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
-      if (data.status == "success") {
+      if (data.status === "success") {
         showFeaturedNews(data.results.slice(0, 1));
-      } else {
-        featuredContent.innerHTML = `<p class="text-dark">Unable to retrieve news as of the moment</p>`;
+      } else if (data.status === "error") {
+        featuredContent.innerHTML = `<p class="text-dark">Unable to retrieve news as of the moment.</p>`;
       }
     });
 }
@@ -77,7 +90,6 @@ function getTrendingNews(url) {
     .then((res) => res.json())
     .then((data) => {
       showTrendingNews(data.results.slice(0, 4));
-      //console.log(data.results);
     });
 }
 
@@ -86,7 +98,6 @@ function getPeople(url) {
     .then((res) => res.json())
     .then((data) => {
       showPeople(data.users);
-      //console.log(data.users);
     });
 }
 
@@ -95,6 +106,22 @@ function getComments(url) {
     .then((res) => res.json())
     .then((data) => {
       showComment(data.comments);
+    });
+}
+
+function getPopularNews(url) {
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      showPopularNews(data.results.slice(0, 2));
+    });
+}
+
+function getLatestNews(url) {
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      showLatestNews(data.results.slice(0, 3));
     });
 }
 
@@ -263,7 +290,7 @@ function showWorldNews(data) {
       <div class="col-md-8">
         <div class="card-body">
           <h6 class="card-title fw-bold">
-            ${title.slice(0, 35) + "..."}
+            ${title.slice(0, 30) + "..."}
           </h6>
           <p class="card-text">
             <a href="${link}" target="_blank" class="orange-text me-2"><i class="bi bi-box-arrow-up-right"></i></a><small class="text-muted">${pubDate}</small>
@@ -283,11 +310,10 @@ function showFeaturedNews(data) {
     featuredElement.innerHTML = `
     <img
       src="${image_url}"
-      class="img-fluid"
+      class="img-fluid featured-img"
       alt=""
     />
-    <div class="card-img-overlay d-flex flex-column justify-content-end">
-      <a class="btn orange-btn" href="${link}" target="_blank">Read</a>
+    <div class="card-img-overlay d-flex flex-column justify-content-end text-white">
       <h5 class="card-title">${title}</h5>
       <p class="card-text">
         ${description}
@@ -326,7 +352,7 @@ function showTrendingNews(data) {
       <div class="col-md-8">
         <div class="card-body">
           <h6 class="card-title fw-bold">
-            ${title.slice(0, 35) + "..."}
+            ${title.slice(0, 30) + "..."}
           </h6>
           <p class="card-text">
             <a href="${link}" target="_blank" class="orange-text me-2"><i class="bi bi-box-arrow-up-right"></i></a><small class="text-muted">${pubDate}</small>
@@ -376,6 +402,61 @@ function showPeople(data) {
   });
 }
 
+function showPopularNews(data) {
+  data.forEach((results) => {
+    const { title, pubDate, image_url, link, description } = results;
+    const popularElement = document.createElement("div");
+    popularElement.classList.add("col-lg-6");
+    popularElement.innerHTML = `
+    <img
+      class="img-fluid mb-2"
+      src="${
+        image_url
+          ? image_url
+          : "https://source.unsplash.com/300x150/?" + title.split(" ")[0]
+      }"
+    />
+    <h5 class="text-capitalize fw-bold">
+      ${title.slice(0, 20) + "..."}
+    </h5>
+    <p class="card-text">
+      <a href="${link}" target="_blank" class="orange-text me-2"><i class="bi bi-box-arrow-up-right"></i></a><small class="text-muted">${pubDate}</small>
+    </p>
+    <p class="text-muted">
+      ${description.slice(0, 60) + "..."}
+    </p>`;
+    popularContent.appendChild(popularElement);
+  });
+}
+
+function showLatestNews(data) {
+  data.forEach((results) => {
+    const { title, pubDate, image_url, link } = results;
+    const latestElement = document.createElement("div");
+    latestElement.classList.add("col-lg-4");
+    latestElement.innerHTML = `
+    <div class="card h-100">
+      <img
+        src="${
+          image_url
+            ? image_url
+            : "https://source.unsplash.com/250x250/?" + title.split(" ")[0]
+        }"
+        alt=""
+      />
+      <div class="card-body">
+        <h5 class="fw-bold">
+          ${title.slice(0, 20) + "..."}
+        </h5>
+        <p class="card-text">
+            <a href="${link}" target="_blank" class="orange-text me-2"><i class="bi bi-box-arrow-up-right"></i></a><small class="text-muted">${pubDate}</small>
+        </p>
+      </div>
+    </div>`;
+    latestContent.appendChild(latestElement);
+  });
+}
+
 function showComment(data) {
   data.forEach((comments) => {
     const { body } = comments;
@@ -419,7 +500,7 @@ function showGeneralNews(data) {
       class="content-img"
       alt="${title}"
       />
-      <div class="card-body">
+      <div class="card-body d-flex flex-column justify-content-center">
         <h6 class="card-title fw-bold">${title.substring(0, 60) + "..."}</h6>
         <small class="text-muted d-block my-2">${publishedAt.split("T").shift()}
         </small>
@@ -447,7 +528,7 @@ function showBusinessNews(data) {
       class="content-img"
       alt="${title}"
       />
-      <div class="card-body">
+      <div class="card-body d-flex flex-column justify-content-center">
         <h6 class="card-title fw-bold">${title.substring(0, 60) + "..."}</h6>
         <small class="text-muted d-block my-2">${publishedAt.split("T").shift()}
         </small>
@@ -475,7 +556,7 @@ function showSportsNews(data) {
       class="content-img"
       alt="${title}"
       />
-      <div class="card-body">
+      <div class="card-body d-flex flex-column justify-content-center">
         <h6 class="card-title fw-bold">${title.substring(0, 60) + "..."}</h6>
         <small class="text-muted d-block my-2">${publishedAt.split("T").shift()}
         </small>
@@ -503,7 +584,7 @@ function showTechnologyNews(data) {
       class="content-img"
       alt="${title}"
       />
-      <div class="card-body">
+      <div class="card-body d-flex flex-column justify-content-center">
         <h6 class="card-title fw-bold">${title.substring(0, 60) + "..."}</h6>
         <small class="text-muted d-block my-2">${publishedAt.split("T").shift()}
         </small>
@@ -531,7 +612,7 @@ function showEntertainmentNews(data) {
       class="content-img"
       alt="${title}"
       />
-      <div class="card-body">
+      <div class="card-body d-flex flex-column justify-content-center">
         <h6 class="card-title fw-bold">${title.substring(0, 60) + "..."}</h6>
         <small class="text-muted d-block my-2">${publishedAt.split("T").shift()}
         </small>
@@ -559,7 +640,7 @@ function showHealthNews(data) {
       class="content-img"
       alt="${title}"
       />
-      <div class="card-body">
+      <div class="card-body d-flex flex-column justify-content-center">
         <h6 class="card-title fw-bold">${title.substring(0, 60) + "..."}</h6>
         <small class="text-muted d-block my-2">${publishedAt.split("T").shift()}
         </small>
@@ -587,7 +668,7 @@ function showScienceNews(data) {
       class="content-img"
       alt="${title}"
       />
-      <div class="card-body">
+      <div class="card-body d-flex flex-column justify-content-center">
         <h6 class="card-title fw-bold">${title.substring(0, 60) + "..."}</h6>
         <small class="text-muted d-block my-2">${publishedAt.split("T").shift()}
         </small>

@@ -32,3 +32,38 @@ function getRandomMeal(url) {
       showRandomMeal(data.meals);
     });
 }
+
+function showChickenCategory(data) {
+  mainContent.innerHTML = "";
+  mainInfo.innerHTML = "";
+  mainSliders.innerHTML = "";
+  data.forEach((meals) => {
+    const { strMeal, strMealThumb, idMeal } = meals;
+    const mainElement = document.createElement("div");
+    mainElement.classList.add("col-lg-3");
+    mainElement.classList.add("col-md-4");
+    mainElement.innerHTML = `
+    <div class="card h-100 mb-3">
+       <img
+         src="${strMealThumb}"
+         class="card-img-top"
+         alt="${strMeal}"
+         />
+         <div class="card-body d-flex flex-column justify-content-center">
+           <h6 class="card-title fw-bold text-center">${strMeal}</h6>
+           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+         </div>
+     </div>
+    `;
+    mainContent.appendChild(mainElement);
+  });
+  const mainHeading = document.createElement("h2");
+  const mainDescription = document.createElement("small");
+  mainHeading.classList.add("fw-bold");
+  mainDescription.classList.add("text-muted");
+  mainHeading.innerText = "Chicken";
+  mainDescription.innerText =
+    "Chicken is a type of domesticated fowl, a subspecies of the red junglefowl. It is one of the most common and widespread domestic animals, with a total population of more than 19 billion as of 2011. Humans commonly keep chickens as a source of food (consuming both their meat and eggs) and, more rarely, as pets.";
+  mainInfo.append(mainHeading);
+  mainInfo.append(mainDescription);
+}

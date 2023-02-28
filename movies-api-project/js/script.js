@@ -64,6 +64,8 @@ const tvSeriesOnAir = document.getElementById("series-on-air");
 const trendingMovies = document.getElementById("trending-movies");
 const trendingSeries = document.getElementById("trending-series");
 const trendingPeople = document.getElementById("trending-people");
+document.querySelector("#header").style.backgroundImage =
+  "url('https://source.unsplash.com/1600x900/?movie ')";
 
 getMovies(movieUrl);
 getSeries(seriesUrl);
