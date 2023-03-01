@@ -21,6 +21,11 @@ body {
   color: var(--primary-color);
 }
 
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: none;
+}
+
 .card-height {
   height: 28em;
 }
@@ -39,6 +44,7 @@ body {
 .btn-green:hover {
   background-color: var(--primary-color);
   color: var(--light-color);
+  transition: 0.25s ease-in-out;
 }
 
 .btn-green:focus {
@@ -70,6 +76,19 @@ body {
   padding: 0.25em 0.5em;
 }
 
+.swiper-nav:hover {
+  background-color: var(--primary-color);
+  transition: 0.25s ease-in-out;
+}
+
+.swiper-nav:hover .bi-chevron-right {
+  color: var(--light-color);
+}
+
+.swiper-nav:hover .bi-chevron-left {
+  color: var(--light-color);
+}
+
 .btn-view {
   background-color: var(--primary-color);
   color: var(--light-color);
@@ -79,17 +98,26 @@ body {
   background-color: var(--primary-color);
   color: var(--light-color);
   opacity: 0.9;
+  transition: 0.25s ease-in-out;
 }
 
 .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
   background: var(--primary-color);
 }
 
+.bg-light {
+  background-color: var(--light-color);
+}
+
+.bg-green {
+  background-color: var(--primary-color);
+}
+
 .overlay {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   left: 0;
   top: 0;
   background-color: rgb(0, 0, 0);
@@ -100,10 +128,11 @@ body {
 
 .overlay-content {
   position: relative;
-  top: 25%;
-  width: 100%;
+  top: 20%;
+  width: 75%;
   text-align: center;
   margin-top: 30px;
+  margin: auto;
 }
 
 .overlay a {
@@ -138,32 +167,21 @@ body {
   }
 }
 
-.img-width {
-  width: 20em;
-}
-
-.content-width {
-  width: 60%;
-  margin: auto;
+.text-green {
+  color: var(--primary-color);
 }
 
 @media screen and (max-width: 480px) {
-  .content-width {
-    width: 90%;
-    margin: auto;
+  .card-height {
+    height: 29em;
   }
-}
-
-@media screen and (min-width: 1024px) {
-  .active:before {
-    content: "";
-    height: 8px;
-    width: 8px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    position: absolute;
-    bottom: -4px;
-    display: inline-block;
-    left: 50%;
+  #hero {
+    height: 40vh;
+  }
+  #hero h1 {
+    font-size: 1.25rem;
+  }
+  .overlay-content {
+    width: 90%;
   }
 }

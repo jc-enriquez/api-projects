@@ -1,13 +1,38 @@
 const swiper = new Swiper(".swiper-categories", {
   slidesPerView: 15,
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
+  // Responsive breakpoints
+  breakpoints: {
+    // when window width is >= 320px
+    320: {
+      slidesPerView: 7,
+      spaceBetween: 20,
+    },
+    // when window width is >= 640px
+    640: {
+      slidesPerView: 15,
+      spaceBetween: 40,
+    },
   },
 });
 
 const swiperAmerican = new Swiper(".swiper-american", {
   slidesPerView: 4,
+  breakpoints: {
+    // when window width is >= 320px
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 20,
+    },
+    // when window width is >= 640px
+    640: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+    1025: {
+      slidesPerView: 4,
+      spaceBetween: 20,
+    },
+  },
   spaceBetween: 30,
   grabCursor: true,
   navigation: {
@@ -22,6 +47,22 @@ const swiperAmerican = new Swiper(".swiper-american", {
 
 const swiperJapanese = new Swiper(".swiper-japanese", {
   slidesPerView: 4,
+  breakpoints: {
+    // when window width is >= 320px
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 20,
+    },
+    // when window width is >= 640px
+    640: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+    1025: {
+      slidesPerView: 4,
+      spaceBetween: 20,
+    },
+  },
   spaceBetween: 30,
   grabCursor: true,
   navigation: {
@@ -36,6 +77,21 @@ const swiperJapanese = new Swiper(".swiper-japanese", {
 
 const swiperFrench = new Swiper(".swiper-french", {
   slidesPerView: 4,
+  breakpoints: {
+    // when window width is >= 320px
+    320: {
+      slidesPerView: 1,
+    },
+    // when window width is >= 640px
+    640: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+    1025: {
+      slidesPerView: 4,
+      spaceBetween: 20,
+    },
+  },
   spaceBetween: 30,
   grabCursor: true,
   navigation: {
@@ -52,7 +108,6 @@ const mainContent = document.getElementById("main-content");
 const mainInfo = document.getElementById("main-info");
 const mainSliders = document.getElementById("main-sliders");
 const mainSearch = document.getElementById("main-search");
-const mainSearchHeading = document.getElementById("main-search-heading");
 const form = document.getElementById("form");
 const randomMealElement = document.getElementById("random-meal");
 const americanFoodContent = document.getElementById("american-food");
@@ -165,13 +220,14 @@ form.addEventListener("submit", getMealList);
 function getMealList(e) {
   e.preventDefault();
   let searchInput = document.getElementById("search-input").value.trim();
-  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`)
+  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.meals);
+      //console.log(data.meals);
       mainContent.innerHTML = "";
       mainSliders.innerHTML = "";
       mainInfo.innerHTML = "";
+      mainSearch.innerHTML = "";
       if (data.meals) {
         data.meals.forEach((meals) => {
           const { idMeal, strMeal, strMealThumb } = meals;
@@ -187,18 +243,32 @@ function getMealList(e) {
                 />
               <div class="card-body d-flex flex-column justify-content-center">
                 <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-                  <button class="btn btn-view rounded-pill w-50 mx-auto mt-2">View Recipe</button>
+                <button class="btn btn-view rounded-pill mx-auto mt-2" id="${idMeal}">View Recipe</button>
               </div>
             </div>`;
           mainSearch.appendChild(mainSearchElement);
+          document.getElementById(idMeal).addEventListener("click", () => {
+            openModal();
+            fetch(
+              `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`
+            )
+              .then((response) => response.json())
+              .then((data) => showModal(data.meals));
+          });
         });
-        const mainSearchHeadingElement = document.createElement("h3");
-        mainSearchHeadingElement.classList.add("fw-bold");
-        mainSearchHeadingElement.classList.add("mb-3");
-        mainSearchHeadingElement.classList.add("text-capitalize");
-        mainSearchHeadingElement.innerText =
-          "Top Results for " + `"` + searchInput + `"`;
-        mainSearchHeading.append(mainSearchHeadingElement);
+      } else {
+        let mainSearchElement = document.createElement("div");
+        mainSearchElement.classList.add(
+          "d-flex",
+          "flex-column",
+          "align-items-center",
+          "justify-content-center"
+        );
+        mainSearchElement.innerHTML = `
+        <img src="images/searching.gif"/>
+        <h6 class="fw-bold text-center">Sorry we can't find the meal you are looking for in our database.</h6>
+        <small class="text-muted text-center">Try using other terms or try visiting https://www.themealdb.com/api.php for more information</small>`;
+        mainSearch.appendChild(mainSearchElement);
       }
     });
 }
@@ -367,13 +437,45 @@ function getGoatCategory(url) {
     });
 }
 
+function showModal(data) {
+  data.forEach((meals) => {
+    const { strMeal, strMealThumb, strInstructions, strCategory, strArea } =
+      meals;
+    const modalElement = document.createElement("div");
+    modalElement.classList.add(
+      "row",
+      "align-items-center",
+      "justify-content-center",
+      "bg-light",
+      "mx-auto",
+      "p-3",
+      "rounded-4"
+    );
+    modalElement.innerHTML = `
+    <div class="col-lg-4">
+      <img src="${strMealThumb}" class="img-fluid mb-2 rounded-3"/>
+    </div>
+    <div class="col-lg-8 text-start">
+      <h2 class="fw-bold text-capitalize mb-2">${strMeal}</h2>
+      <div class="mb-2">
+        <span class="badge bg-green">${strCategory}</span>
+        <span class="badge bg-green">${strArea}</span>
+      </div>
+      <h4 class="fw-bold">Instructions</h4>
+      <small class="text-muted">${strInstructions}</small>
+    </div>
+    `;
+    overlayContent.appendChild(modalElement);
+  });
+}
+
 function showAmericanFood(data) {
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
     mainElement.classList.add("swiper-slide");
     mainElement.innerHTML = `
-    <div class="card card-height">
+    <div class="card card-height" data-id=${idMeal}>
        <img
          src="${strMealThumb}"
          class="card-img-top"
@@ -381,11 +483,17 @@ function showAmericanFood(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill mx-auto mt-2" id=${idMeal}>View Recipe</button>
          </div>
      </div>
     `;
     americanFoodContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
 }
 
@@ -403,11 +511,17 @@ function showJapaneseFood(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     japaneseFoodContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
 }
 
@@ -425,11 +539,17 @@ function showFrenchFood(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     frenchFoodContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
 }
 
@@ -437,6 +557,7 @@ function showBeefCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -451,11 +572,17 @@ function showBeefCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
 
   const mainHeading = document.createElement("h2");
@@ -473,6 +600,7 @@ function showChickenCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -487,11 +615,17 @@ function showChickenCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -508,6 +642,7 @@ function showDessertCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -522,11 +657,17 @@ function showDessertCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -543,6 +684,7 @@ function showLambCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -557,11 +699,17 @@ function showLambCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -578,6 +726,7 @@ function showMiscellaneousCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -592,11 +741,17 @@ function showMiscellaneousCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill  mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -613,6 +768,7 @@ function showPastaCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -627,11 +783,17 @@ function showPastaCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill  mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -648,6 +810,7 @@ function showPorkCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -662,11 +825,17 @@ function showPorkCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill  mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -683,6 +852,7 @@ function showSeafoodCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -697,11 +867,17 @@ function showSeafoodCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill  mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -718,6 +894,7 @@ function showSideCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -732,11 +909,17 @@ function showSideCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill  mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -753,6 +936,7 @@ function showStarterCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -767,11 +951,17 @@ function showStarterCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Button</button>
+           <button class="btn btn-view rounded-pill  mx-auto mt-2" id="${idMeal}">View Button</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -788,6 +978,7 @@ function showVeganCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -802,11 +993,17 @@ function showVeganCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Button</button>
+           <button class="btn btn-view rounded-pill  mx-auto mt-2" id="${idMeal}">View Button</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -823,6 +1020,7 @@ function showVegetarianCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -837,11 +1035,17 @@ function showVegetarianCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill  mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -858,6 +1062,7 @@ function showBreakfastCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -872,11 +1077,17 @@ function showBreakfastCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill  mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -893,6 +1104,7 @@ function showGoatCategory(data) {
   mainContent.innerHTML = "";
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
+  mainSearch.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -907,11 +1119,17 @@ function showGoatCategory(data) {
          />
          <div class="card-body d-flex flex-column justify-content-center">
            <h6 class="card-title fw-bold text-center">${strMeal}</h6>
-           <button class="btn btn-view rounded-pill w-50 mx-auto mt-2" id="${idMeal}">View Recipe</button>
+           <button class="btn btn-view rounded-pill  mx-auto mt-2" id="${idMeal}">View Recipe</button>
          </div>
      </div>
     `;
     mainContent.appendChild(mainElement);
+    document.getElementById(idMeal).addEventListener("click", () => {
+      openModal();
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+        .then((response) => response.json())
+        .then((data) => showModal(data.meals));
+    });
   });
   const mainHeading = document.createElement("h2");
   const mainDescription = document.createElement("small");
@@ -924,10 +1142,16 @@ function showGoatCategory(data) {
   mainInfo.append(mainDescription);
 }
 
-function openNav() {
-  document.getElementById("myNav").style.width = "100%";
+function openModal() {
+  document.getElementById("modal").style.width = "100%";
 }
 
-function closeNav() {
-  document.getElementById("myNav").style.width = "0%";
+function closeModal() {
+  overlayContent.innerHTML = "";
+  document.getElementById("modal").style.width = "0%";
 }
+
+const date = new Date();
+
+let year = date.getFullYear();
+document.getElementById("year").innerText = year;
