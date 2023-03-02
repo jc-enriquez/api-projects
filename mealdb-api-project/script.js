@@ -108,6 +108,7 @@ const mainContent = document.getElementById("main-content");
 const mainInfo = document.getElementById("main-info");
 const mainSliders = document.getElementById("main-sliders");
 const mainSearch = document.getElementById("main-search");
+const mainSearchInfo = document.getElementById("main-search-info");
 const form = document.getElementById("form");
 const randomMealElement = document.getElementById("random-meal");
 const americanFoodContent = document.getElementById("american-food");
@@ -256,7 +257,9 @@ function getMealList(e) {
               .then((data) => showModal(data.meals));
           });
         });
+        mainSearchInfo.innerHTML = `<h2 class="fw-bold my-3 text-capitalize">Top Results for "${searchInput}"</h2>`;
       } else {
+        mainSearchInfo.innerHTML = "";
         let mainSearchElement = document.createElement("div");
         mainSearchElement.classList.add(
           "d-flex",
@@ -558,6 +561,7 @@ function showBeefCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -601,6 +605,7 @@ function showChickenCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -643,6 +648,7 @@ function showDessertCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -685,6 +691,7 @@ function showLambCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -727,6 +734,7 @@ function showMiscellaneousCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -769,6 +777,7 @@ function showPastaCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -811,6 +820,7 @@ function showPorkCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -853,6 +863,7 @@ function showSeafoodCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -895,6 +906,7 @@ function showSideCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -937,6 +949,7 @@ function showStarterCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -979,6 +992,7 @@ function showVeganCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -1021,6 +1035,7 @@ function showVegetarianCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -1063,6 +1078,7 @@ function showBreakfastCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
@@ -1105,6 +1121,7 @@ function showGoatCategory(data) {
   mainInfo.innerHTML = "";
   mainSliders.innerHTML = "";
   mainSearch.innerHTML = "";
+  mainSearchInfo.innerHTML = "";
   data.forEach((meals) => {
     const { strMeal, strMealThumb, idMeal } = meals;
     const mainElement = document.createElement("div");
