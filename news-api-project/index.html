@@ -15,51 +15,14 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
     />
-    <!-- Calendar CSS -->
-    <link rel="stylesheet" href="css/vanilla-calendar.min.css" />
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div class="upper-header bg-dark">
-      <div class="container text-white py-1">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="social-icons">
-            <i class="bi bi-facebook me-2"></i>
-            <i class="bi bi-instagram me-2"></i>
-            <i class="bi bi-twitter me-2"></i>
-          </div>
-          <p id="date" class="p-0 m-0"></p>
-        </div>
-      </div>
-    </div>
     <header>
-      <div class="container py-4 d-none d-lg-block">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="nav-logo">
-            <a href="" class="navbar-brand fw-bold fs-2"
-              ><span>Pahayag</span>an</a
-            >
-            <small class="text-muted d-block"
-              >Lorem ipsum dolor sit amet
-            </small>
-          </div>
-          <form action="" class="d-flex" id="form">
-            <input
-              type="text"
-              class="form-control me-2"
-              placeholder="Search news"
-              id="news-query"
-            />
-            <button class="btn orange-btn" type="button" id="search">
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
       <nav class="navbar navbar-expand-lg border-top border-bottom py-3">
         <div class="container">
-          <div class="nav-logo d-sm-block d-lg-none">
+          <div class="nav-logo">
             <a href="" class="navbar-brand fw-bold fs-2"
               ><span>Pahayag</span>an</a
             >
@@ -80,7 +43,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul
-              class="nav nav-pills mb-3 d-flex flex-column flex-lg-row"
+              class="nav nav-pills ms-auto d-flex flex-column flex-lg-row"
               id="pills-tab"
               role="tablist"
             >
@@ -210,45 +173,13 @@
           aria-labelledby="pills-home-tab"
           tabindex="0"
         >
-          <div class="container my-3">
-            <section>
-              <div class="row">
-                <div class="col-lg-3 d-none d-lg-block">
-                  <h5 class="fw-bold text-uppercase mb-3">world news</h5>
-                  <div id="world-content" class="mb-3"></div>
-                  <div id="people-content" class="mb-3">
-                    <h5 class="fw-bold text-uppercase mb-3">popular authors</h5>
-                  </div>
-                  <div id="calendar">
-                    <h5 class="fw-bold text-uppercase mb-3">calendar</h5>
-                    <div id="vanilla-calendar"></div>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <h5 class="fw-bold text-uppercase mb-3">featured story</h5>
-                  <div id="featured-content" class="mb-3"></div>
-                  <div id="" class="mb-3">
-                    <h5 class="fw-bold text-uppercase mb-3">Popular Story</h5>
-                    <div class="row" id="popular-content"></div>
-                  </div>
-                  <div>
-                    <h5 class="fw-bold text-uppercase mb-3">latest story</h5>
-                    <div class="row gy-3" id="latest-content"></div>
-                  </div>
-                </div>
-                <div class="col-lg-3 d-none d-lg-block">
-                  <h5 class="fw-bold text-uppercase mb-3">trending news</h5>
-                  <div id="trending-content"></div>
-                  <div id="comment-content">
-                    <h5 class="fw-bold text-uppercase mb-3">recent comments</h5>
-                  </div>
-                  <div id="unsplash">
-                    <h5 class="fw-bold text-uppercase mb-3">unsplash</h5>
-                    <div class="row g-2" id="img-container"></div>
-                  </div>
-                </div>
-              </div>
-            </section>
+          <div class="container">
+            <h3 class="fw-bold my-3">Top Headlines</h3>
+            <div class="row mb-3">
+              <div class="col-lg-8" id="headline-main"></div>
+              <div class="col-lg-4" id="headline-aside"></div>
+            </div>
+            <div class="row mb-3" id="headline-row"></div>
           </div>
         </div>
         <!-- End of Home -->
@@ -260,6 +191,7 @@
           aria-labelledby="pills-general-tab"
           tabindex="0"
         >
+          <h3 class="fw-bold my-3">General News</h3>
           <div class="row my-3 gy-3" id="general-content"></div>
         </div>
         <!-- End of General Content -->
@@ -271,6 +203,7 @@
           aria-labelledby="pills-business-tab"
           tabindex="0"
         >
+          <h3 class="fw-bold my-3">Business News</h3>
           <div class="row my-3 gy-3" id="business-content"></div>
         </div>
         <!-- End of Business Content -->
@@ -282,6 +215,7 @@
           aria-labelledby="pills-sports-tab"
           tabindex="0"
         >
+          <h3 class="fw-bold my-3">Sports News</h3>
           <div class="row my-3 gy-3" id="sports-content"></div>
         </div>
         <!-- End of Sports Content -->
@@ -293,6 +227,7 @@
           aria-labelledby="pills-technology-tab"
           tabindex="0"
         >
+          <h3 class="fw-bold my-3">Technology News</h3>
           <div class="row my-3 gy-3" id="technology-content"></div>
         </div>
         <!-- End of Technology Content -->
@@ -304,6 +239,7 @@
           aria-labelledby="pills-entertainment-tab"
           tabindex="0"
         >
+          <h3 class="fw-bold my-3">Entertainment</h3>
           <div class="row my-3 gy-3" id="entertainment-content"></div>
         </div>
         <!-- End of Entertainment Content -->
@@ -315,6 +251,7 @@
           aria-labelledby="pills-health-tab"
           tabindex="0"
         >
+          <h3 class="fw-bold my-3">Health News</h3>
           <div class="row my-3 gy-3" id="health-content"></div>
         </div>
         <!-- End of Health Content -->
@@ -326,6 +263,7 @@
           aria-labelledby="pills-education-tab"
           tabindex="0"
         >
+          <h3 class="fw-bold my-3">Science News</h3>
           <div class="row my-3 gy-3" id="science-content"></div>
         </div>
         <!-- End of Science Content -->
@@ -354,8 +292,6 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <!-- Calendar JS -->
-    <script src="js/vanilla-calendar.min.js"></script>
     <!-- Main JS -->
     <script src="js/script.js"></script>
   </body>

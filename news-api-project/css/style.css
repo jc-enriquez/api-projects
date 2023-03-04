@@ -19,6 +19,16 @@ body {
   color: var(--primary-color);
 }
 
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: none;
+}
+
+.input-group-text {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
 .square-img {
   height: 100px;
   width: 100px;
@@ -60,6 +70,17 @@ body {
   .nav-item {
     border: none;
   }
+}
+
+.headline-img-main {
+  width: 100%;
+  object-fit: cover;
+}
+
+.headline-img-aside {
+  height: 100px;
+  width: 200px;
+  object-fit: cover;
 }
 
 .content-img {
